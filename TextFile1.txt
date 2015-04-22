@@ -1,0 +1,339 @@
+
+            if (checkBox2.Checked)
+            {
+                
+                    // Создание суточного отчета--------------------------------------------------------
+
+                    //Start Word and create a new document.
+                    Word._Application oWord2;
+                    Word._Document oDoc2;
+                    oWord2 = new Word.Application();
+                    oWord2.Visible = false;
+                    oDoc2 = oWord2.Documents.Add(ref oMissing, ref oMissing,
+                        ref oMissing, ref oMissing);
+
+                    oDoc2.PageSetup.Orientation = Word.WdOrientation.wdOrientPortrait;
+                    oDoc2.PageSetup.TopMargin = oDoc2.Content.Application.CentimetersToPoints((float)1.2);
+                    oDoc2.PageSetup.LeftMargin = oDoc2.Content.Application.CentimetersToPoints((float)1);
+                    oDoc2.PageSetup.RightMargin = oDoc2.Content.Application.CentimetersToPoints((float)1);
+                    //Insert a paragraph at the beginning of the document.
+                    Word.Paragraph oPara20;
+                    oPara20 = oDoc2.Content.Paragraphs.Add(ref oMissing);
+                    oPara20.Range.Text = "Дата создания отчета: " + DateTime.Now;
+                    oPara20.Range.Font.Name = "Arial";
+                    oPara20.Range.Font.Size = 8;
+                    oPara20.Range.Font.Bold = 0;
+                    oPara20.Range.Font.Italic = 1;
+                    oPara20.Format.SpaceAfter = 4;    //24 pt spacing after paragraph.
+                    oPara20.Range.InsertParagraphAfter();
+
+                    //Insert a paragraph at the end of the document.
+                    Word.Paragraph oPara21;
+                    object oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara21 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara21.Range.Text = "Поставщик:";
+                    oPara21.Range.Font.Size = 10;
+                    oPara21.Range.Font.Italic = 0;
+                    oPara21.Range.Font.Bold = 1;
+                    oPara21.Format.SpaceAfter = 4;
+                    oPara21.Range.InsertParagraphAfter();
+
+                    //Insert another paragraph.
+                    Word.Paragraph oPara22;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara22 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara22.Range.Text = "Потребитель: ОАО \"Аньковское\"";
+                    oPara22.Range.Font.Size = 10;
+                    oPara22.Range.Font.Bold = 1;
+                    oPara22.Format.SpaceAfter = 4;
+                    oPara22.Range.InsertParagraphAfter();
+
+                    //Insert another paragraph.
+                    Word.Paragraph oPara23;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara23 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara23.Range.Text = "Прибор: Корректор ЕК260 № 10327262";
+                    oPara23.Range.Font.Size = 10;
+                    oPara23.Range.Font.Bold = 1;
+                    oPara23.Format.SpaceAfter = 4;
+                    oPara23.Range.InsertParagraphAfter();
+
+                    //Insert another paragraph.
+                    Word.Paragraph oPara28;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara28 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara28.Range.Text = "Объект: Узел учета газа";
+                    oPara28.Range.Font.Size = 9;
+                    oPara28.Range.Font.Bold = 0;
+                    oPara28.Format.SpaceAfter = 4;
+                    oPara28.Range.InsertParagraphAfter();
+
+                    //Insert another paragraph.
+                    Word.Paragraph oPara24;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara24 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara24.Range.Text = "Место установки";
+                    oPara24.Range.Font.Size = 9;
+                    oPara24.Range.Font.Bold = 0;
+                    oPara24.Format.SpaceAfter = 4;
+                    oPara24.Range.InsertParagraphAfter();
+
+                    //Insert another paragraph.
+                    Word.Paragraph oPara25;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara25 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara25.Range.Text = "Начало дня приборное: 10:00:00                                                        Начало дня программное: 10:00:00";
+                    oPara25.Range.Font.Size = 9;
+                    oPara25.Range.Font.Bold = 0;
+                    oPara25.Format.SpaceAfter = 4;
+                    oPara25.Range.InsertParagraphAfter();
+
+                    //Insert another paragraph.
+                    Word.Paragraph oPara26;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara26 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara26.Range.Text = "Период отчета: с " + date1.AddHours(-1) + " по " + date2.AddHours(-1).AddSeconds(-1);
+                    oPara26.Range.Font.Size = 9;
+                    oPara26.Range.Font.Bold = 0;
+                    oPara26.Format.SpaceAfter = 8;
+                    oPara26.Range.InsertParagraphAfter();
+
+                    //Insert another paragraph.
+                    Word.Paragraph oPara27;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara27 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara27.Range.Text = "Суточный отчет";
+                    oPara27.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    oPara27.Range.Font.Size = 14;
+                    oPara27.Range.Font.Bold = 1;
+                    oPara27.Format.SpaceAfter = 4;
+                    oPara27.Range.InsertParagraphAfter();
+
+                    
+
+
+
+
+                    //Insert a 3 x 5 table, fill it with data, and make the first row
+                    //bold and italic.
+                    Word.Table oTable3;
+                    Word.Range wrdRng3 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oTable3 = oDoc2.Tables.Add(wrdRng3, (2 + interval.Days), 6, ref oMissing, ref oMissing);
+                    oTable3.Range.ParagraphFormat.SpaceBefore = 1;
+                    oTable3.Range.ParagraphFormat.SpaceAfter = 1;
+                    oTable3.Range.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                    oTable3.Rows[1].Range.Font.Size = 8;
+                    oTable3.Rows[1].Range.Font.Bold = 0;
+                    oTable3.Range.Font.Size = 8;
+                    oTable3.Range.Font.Bold = 0;
+                    oTable3.Range.InsertParagraphAfter();
+
+                    oTable3.Columns[1].Width = oWord2.CentimetersToPoints((float)2);
+                    oTable3.Columns[2].Width = oWord2.CentimetersToPoints((float)2.5);
+                    oTable3.Columns[3].Width = oWord2.CentimetersToPoints((float)2.5);
+                    oTable3.Columns[4].Width = oWord2.CentimetersToPoints((float)2.2);
+                    oTable3.Columns[5].Width = oWord2.CentimetersToPoints((float)2.2);
+                    oTable3.Columns[6].Width = oWord2.CentimetersToPoints((float)2);
+
+
+
+
+                    oWord2.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekCurrentPageFooter;
+                    oWord2.ActiveWindow.ActivePane.Selection.Font.Name = "Arial";
+                    oWord2.ActiveWindow.ActivePane.Selection.Font.Size = 10;
+                    oWord2.ActiveWindow.ActivePane.Selection.Font.Color = 0;
+                    oWord2.ActiveWindow.Selection.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphRight;
+                    oWord2.ActiveWindow.ActivePane.Selection.TypeText("Стр № ");
+                    oWord2.ActiveWindow.ActivePane.Selection.Fields.Add(oWord2.ActiveWindow.ActivePane.Selection.Range, Word.WdFieldType.wdFieldPage, oMissing, oMissing);
+                    oWord2.ActiveWindow.ActivePane.Selection.TypeText(" из ");
+                    oWord2.ActiveWindow.ActivePane.Selection.Fields.Add(oWord2.ActiveWindow.ActivePane.Selection.Range, Word.WdFieldType.wdFieldNumPages, oMissing, oMissing);
+                    oWord2.ActiveWindow.ActivePane.View.SeekView = Word.WdSeekView.wdSeekMainDocument;
+
+
+
+
+                    Word.Border[] borders2 = new Word.Border[6];//массив бордеров
+                    borders2[0] = oTable3.Borders[Word.WdBorderType.wdBorderLeft];//левая граница 
+                    borders2[1] = oTable3.Borders[Word.WdBorderType.wdBorderRight];//правая граница 
+                    borders2[2] = oTable3.Borders[Word.WdBorderType.wdBorderTop];//нижняя граница 
+                    borders2[3] = oTable3.Borders[Word.WdBorderType.wdBorderBottom];//верхняя граница
+                    borders2[4] = oTable3.Borders[Word.WdBorderType.wdBorderHorizontal];//горизонтальная граница
+                    borders2[5] = oTable3.Borders[Word.WdBorderType.wdBorderVertical];//вертикальная граница
+
+                    foreach (Word.Border border in borders2)
+                    {
+                        border.LineStyle = Word.WdLineStyle.wdLineStyleSingle;//ставим стиль границы 
+                        border.Color = Word.WdColor.wdColorBlack;//задаем цвет границы
+                    }
+                    //          oTable3.Rows[1].HeadingFormat = -1;
+                    oTable3.Cell(1, 1).Range.Text = "Дата";
+                    oTable3.Cell(1, 2).Range.Text = "Vраб.общ., [м3] (потребление)";
+                    oTable3.Cell(1, 3).Range.Text = "Vст.общ., [м3] (потребление)";
+                    oTable3.Cell(1, 4).Range.Text = "P, [бар]";
+                    oTable3.Cell(1, 5).Range.Text = "T, [" + Convert.ToChar(176) + "С]";
+                    oTable3.Cell(1, 6).Range.Text = "К кор.";
+
+                    oTable3.Cell(2 + interval.Days, 1).Range.Text = "Итого:";
+                    
+
+                    //Insert another paragraph.
+                    Word.Paragraph oPara29;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara29 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara29.Range.Text = "Примечание: в интервалах, затенённых серым цветом, содержатся сообщения о начале или завершении нештатных ситуаций.";
+                    oPara29.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                    oPara29.Range.Font.Size = 7;
+                    oPara29.Range.Font.Bold = 0;
+                    oPara29.Range.Font.Italic = 1;
+                    oPara29.Range.Font.Underline = Word.WdUnderline.wdUnderlineSingle;
+                    oPara29.Format.SpaceAfter = 4;
+                    oPara29.Range.InsertParagraphAfter();
+
+                    Word.Paragraph oPara30;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara30 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara30.Range.Text = "________________________________________________________________________________________";
+                    oPara30.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                    oPara30.Range.Font.Size = 10;
+                    oPara30.Range.Font.Bold = 1;
+                    oPara30.Format.SpaceAfter = 12;
+                    oPara30.Range.InsertParagraphAfter();
+
+                    Word.Paragraph oPara31;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara31 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara31.Range.Text = "Представитель поставщика:________________________________//";
+                    oPara31.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                    oPara31.Range.Font.Size = 10;
+                    oPara31.Range.Font.Bold = 1;
+                    oPara31.Range.Font.Italic = 1;
+                    oPara31.Format.SpaceAfter = 12;
+                    oPara31.Range.InsertParagraphAfter();
+
+
+                    Word.Paragraph oPara32;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara32 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara32.Range.Text = "Ответственный за учет:________________________________/Смолярчук А.Н./";
+                    oPara32.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                    oPara32.Range.Font.Size = 10;
+                    oPara32.Range.Font.Bold = 1;
+                    oPara32.Range.Font.Italic = 1;
+                    oPara32.Format.SpaceAfter = 12;
+                    oPara32.Range.InsertParagraphAfter();
+
+                    Word.Paragraph oPara33;
+                    oRng2 = oDoc2.Bookmarks.get_Item(ref oEndOfDoc).Range;
+                    oPara33 = oDoc2.Content.Paragraphs.Add(ref oRng2);
+                    oPara33.Range.Text = "Ответственный за прибор:________________________________//";
+                    oPara33.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                    oPara33.Range.Font.Size = 10;
+                    oPara33.Range.Font.Bold = 1;
+                    oPara33.Range.Font.Italic = 1;
+                    oPara33.Format.SpaceAfter = 12;
+                    oPara33.Range.InsertParagraphAfter();
+
+                
+
+
+
+
+            int k1 = 0;
+            int k_sum = 0;
+            int gas_mark_gray_sut = 0;
+ 
+            decimal gas_v_r_p, gas_v_st_p;
+            decimal gas_pressure_sut = 0;
+            decimal gas_temperature_sut = 0;
+            decimal gas_kkor_sut = 0;
+            decimal gas_v_r_p_sum = 0;
+            decimal gas_v_st_p_sum = 0;
+            decimal gas_pressure_sum = 0;
+            decimal gas_temperature_sum = 0;
+            string date1_sql;
+            string date1_str;
+            string date1_month = "";
+           
+
+            for (int k = 0; k <= (interval.Days - 1); k++)
+            {
+                gas_v_r_p = 0;
+                gas_v_st_p = 0;
+                gas_pressure_sut = 0;
+                gas_temperature_sut = 0;
+                gas_kkor_sut = 0;
+
+
+                for (int j = 1; j <= 24; j++)
+                {
+
+                    date1_str = date1.ToString();
+
+                    if (date1_str.Length == 19)
+                    {
+                        date1_sql = date1_str.Substring(6, 4) + date1_str.Substring(3, 2) + date1_str.Substring(0, 2) + date1_str.Substring(11, 2) + date1_str.Substring(14, 2) + date1_str.Substring(17, 2);
+                    }
+                    else
+                    {
+                        date1_sql = date1_str.Substring(6, 4) + date1_str.Substring(3, 2) + date1_str.Substring(0, 2) + "0" + date1_str.Substring(11, 1) + date1_str.Substring(13, 2) + date1_str.Substring(16, 2);
+                    }
+                    
+					result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM gas where gas_datetime =" + date1_sql + " LIMIT 0,1", conn_str);
+
+
+
+                    if (result.ResultData.DefaultView.Table.Rows[0]["gas_mark_gray"].ToString() == "1")
+                    {
+                        gas_mark_gray_sut = 1;
+                    }
+
+                    v_r_sum = v_r_sum + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_v_r_p"].ToString());
+                    v_st_sum = v_st_sum + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_v_st_p"].ToString());
+
+                    pressure_sr = pressure_sr + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_pressure"].ToString());
+                    temperature_sr = pressure_sr + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_temperature"].ToString());
+
+                    gas_pressure_sut = gas_pressure_sut + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_pressure"].ToString());
+                    gas_temperature_sut = gas_temperature_sut + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_temperature"].ToString());
+                    gas_kkor_sut = gas_kkor_sut + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_kkor"].ToString());
+
+
+
+                    gas_v_r_p = gas_v_r_p + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_v_r_p"].ToString());
+                    gas_v_st_p = gas_v_st_p + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_v_st_p"].ToString());
+                    gas_pressure_sum = gas_pressure_sum + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_pressure"].ToString());
+                    gas_temperature_sum = gas_temperature_sum + Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["gas_temperature"].ToString());
+
+                    date1 = date1.AddHours(1);
+
+
+                }
+
+
+                    oTable3.Cell(2 + k, 1).Range.Text = Convert.ToString(date1.Date.AddDays(-1)).Substring(0, 6) + Convert.ToString(date1.Date.AddDays(-1)).Substring(8, 2);
+                    if (gas_mark_gray_sut == 1)
+                    {
+                        oTable3.Cell(2 + k, 2).Range.Shading.BackgroundPatternColor = Word.WdColor.wdColorGray125;
+                        oTable3.Cell(2 + k, 3).Range.Shading.BackgroundPatternColor = Word.WdColor.wdColorGray125;
+                        oTable3.Cell(2 + k, 4).Range.Shading.BackgroundPatternColor = Word.WdColor.wdColorGray125;
+                        oTable3.Cell(2 + k, 5).Range.Shading.BackgroundPatternColor = Word.WdColor.wdColorGray125;
+                    }
+
+                    oTable3.Cell(2 + k, 2).Range.Text = Convert.ToString(gas_v_r_p);
+                    oTable3.Cell(2 + k, 3).Range.Text = Convert.ToString(gas_v_st_p);
+                    oTable3.Cell(2 + k, 4).Range.Text = Convert.ToString(Math.Round(gas_pressure_sut / 24, 4));
+                    oTable3.Cell(2 + k, 5).Range.Text = Convert.ToString(Math.Round(gas_temperature_sut / 24, 2));
+                    oTable3.Cell(2 + k, 6).Range.Text = Convert.ToString(Math.Round(gas_kkor_sut / 24, 5));
+
+                    k1 = (27 + 26 * k);
+                }
+
+                oTable3.Cell(2 + interval.Days, 2).Range.Text = Convert.ToString(gas_v_r_p_sum);
+                oTable3.Cell(2 + interval.Days, 3).Range.Text = Convert.ToString(gas_v_st_p_sum);
+
+
+
+            oWord2.Visible = true;
+            }
+
+           
