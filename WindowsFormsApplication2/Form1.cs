@@ -1615,6 +1615,11 @@ namespace WindowsFormsApplication2
             MySqlLib.MySqlData.MySqlExecute.MyResult result15 = new MySqlLib.MySqlData.MySqlExecute.MyResult();
             MySqlLib.MySqlData.MySqlExecute.MyResult result16 = new MySqlLib.MySqlData.MySqlExecute.MyResult();
 
+            MySqlLib.MySqlData.MySqlExecute.MyResult result17 = new MySqlLib.MySqlData.MySqlExecute.MyResult();
+            MySqlLib.MySqlData.MySqlExecute.MyResult result18 = new MySqlLib.MySqlData.MySqlExecute.MyResult();
+            MySqlLib.MySqlData.MySqlExecute.MyResult result19 = new MySqlLib.MySqlData.MySqlExecute.MyResult();
+            MySqlLib.MySqlData.MySqlExecute.MyResult result20 = new MySqlLib.MySqlData.MySqlExecute.MyResult();
+
             DateTime date3 = DateTime.Now;
 
             textBox1.Text = Convert.ToString(date3.Year);
@@ -2203,8 +2208,258 @@ namespace WindowsFormsApplication2
                 comboBox2.Text = "Ноябрь";
             }
 
+            
+            
+            DateTime date5 = DateTime.Now;
+            DateTime date6 = DateTime.Now;
+
+            date5 = date5.AddDays(-1);
+            date6 = date6.AddDays(-1);
+
+            DateTime date7 = DateTime.Now;
+            DateTime date8 = DateTime.Now;
+
+            date7 = date7.AddDays(-1);
+            date8 = date8.AddDays(-1);
+
+            DateTime date9 = DateTime.Now;
+            DateTime date10 = DateTime.Now;
+
+            date9 = date9.AddDays(-1);
+            date10 = date10.AddDays(-1);
+
+            String date5_str, date5_sql;
+            String date6_str, date6_sql;
+
+            String date7_str, date7_sql;
+            String date8_str, date8_sql;
+
+            String date9_str, date9_sql;
+            String date10_str, date10_sql;
+
+            date5_str = "";
+            date7_str = "";
+            date9_str = "";
+
+            Decimal active42 = 0;
+            Decimal reactive42 = 0;
+
+            string[] date42_arr = new string[12];
+            string[] active42_arr = new string[12];
+            string[] reactive42_arr = new string[12];
+
+            Decimal active55 = 0;
+            Decimal reactive55 = 0;
+
+            string[] date55_arr = new string[12];
+            string[] active55_arr = new string[12];
+            string[] reactive55_arr = new string[12];
+
+            Decimal active56 = 0;
+            Decimal reactive56 = 0;
+
+            string[] date56_arr = new string[12];
+            string[] active56_arr = new string[12];
+            string[] reactive56_arr = new string[12];
 
 
+
+
+            date5 = new DateTime(date5.Year, date5.Month, date5.Day, 0, 30, 00);
+            date6 = new DateTime(date6.Year, date6.Month, date6.Day, 1, 00, 00);
+
+            date7 = new DateTime(date7.Year, date7.Month, date7.Day, 0, 40, 00);
+            date8 = new DateTime(date8.Year, date8.Month, date8.Day, 1, 10, 00);
+
+            date9 = new DateTime(date9.Year, date9.Month, date9.Day, 0, 43, 00);
+            date10 = new DateTime(date10.Year, date10.Month, date10.Day, 1, 13, 00);
+
+            for (int k = 0; k < 5; k++)
+            {
+                active42 = 0;
+                reactive42 = 0;
+                active55 = 0;
+                reactive55 = 0;
+                active56 = 0;
+                reactive56 = 0;
+
+                for (int m = 0; m < 24; m++)
+                {
+
+                    date5_str = date5.ToString();
+
+                    if (date5_str.Length == 19)
+                    {
+                        date5_sql = date5_str.Substring(6, 4) + date5_str.Substring(3, 2) + date5_str.Substring(0, 2) + date5_str.Substring(11, 2) + date5_str.Substring(14, 2) + date5_str.Substring(17, 2);
+                    }
+                    else
+                    {
+                        date5_sql = date5_str.Substring(6, 4) + date5_str.Substring(3, 2) + date5_str.Substring(0, 2) + "0" + date5_str.Substring(11, 1) + date5_str.Substring(13, 2) + date5_str.Substring(16, 2) ;
+                    }
+
+
+
+
+                    date6_str = date6.ToString();
+
+                    if (date6_str.Length == 19)
+                    {
+                        date6_sql = date6_str.Substring(6, 4) + date6_str.Substring(3, 2) + date6_str.Substring(0, 2) + date6_str.Substring(11, 2) + date6_str.Substring(14, 2) + date6_str.Substring(17, 2);
+                    }
+                    else
+                    {
+                        date6_sql = date6_str.Substring(6, 4) + date6_str.Substring(3, 2) + date6_str.Substring(0, 2) + "0" + date6_str.Substring(11, 1) + date6_str.Substring(13, 2) + date6_str.Substring(16, 2);
+                    }
+
+                    result17 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro42_active FROM electro42 where electro42_datetime =" + date5_sql + " LIMIT 0,1", conn_str);
+                    result18 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro42_reactive FROM electro42 where electro42_datetime =" + date5_sql + " LIMIT 0,1", conn_str);
+                    
+                    result19 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro42_active FROM electro42 where electro42_datetime =" + date6_sql + " LIMIT 0,1", conn_str);
+                    result20 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro42_reactive FROM electro42 where electro42_datetime =" + date6_sql + " LIMIT 0,1", conn_str);
+
+
+                    active42 = active42 + Convert.ToDecimal(result17.ResultText)/2 + Convert.ToDecimal(result19.ResultText)/2;
+                    reactive42 = reactive42 + Convert.ToDecimal(result18.ResultText) / 2 + Convert.ToDecimal(result20.ResultText) / 2;
+
+
+                    date7_str = date7.ToString();
+
+                    if (date7_str.Length == 19)
+                    {
+                        date7_sql = date7_str.Substring(6, 4) + date7_str.Substring(3, 2) + date7_str.Substring(0, 2) + date7_str.Substring(11, 2) + date7_str.Substring(14, 2) + date7_str.Substring(17, 2);
+                    }
+                    else
+                    {
+                        date7_sql = date7_str.Substring(6, 4) + date7_str.Substring(3, 2) + date7_str.Substring(0, 2) + "0" + date7_str.Substring(11, 1) + date7_str.Substring(13, 2) + date7_str.Substring(16, 2);
+                    }
+
+
+                    date8_str = date8.ToString();
+
+                    if (date8_str.Length == 19)
+                    {
+                        date8_sql = date8_str.Substring(6, 4) + date8_str.Substring(3, 2) + date8_str.Substring(0, 2) + date8_str.Substring(11, 2) + date8_str.Substring(14, 2) + date8_str.Substring(17, 2);
+                    }
+                    else
+                    {
+                        date8_sql = date8_str.Substring(6, 4) + date8_str.Substring(3, 2) + date8_str.Substring(0, 2) + "0" + date8_str.Substring(11, 1) + date8_str.Substring(13, 2) + date8_str.Substring(16, 2);
+                    }
+
+                    result17 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro55_active FROM electro55 where electro55_datetime =" + date7_sql + " LIMIT 0,1", conn_str);
+                    result18 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro55_reactive FROM electro55 where electro55_datetime =" + date7_sql + " LIMIT 0,1", conn_str);
+
+                    result19 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro55_active FROM electro55 where electro55_datetime =" + date8_sql + " LIMIT 0,1", conn_str);
+                    result20 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro55_reactive FROM electro55 where electro55_datetime =" + date8_sql + " LIMIT 0,1", conn_str);
+
+
+                    active55 = active55 + Convert.ToDecimal(result17.ResultText) / 2 + Convert.ToDecimal(result19.ResultText) / 2;
+                    reactive55 = reactive55 + Convert.ToDecimal(result18.ResultText) / 2 + Convert.ToDecimal(result20.ResultText) / 2;
+
+                    
+                    date9_str = date9.ToString();
+
+                    if (date9_str.Length == 19)
+                    {
+                        date9_sql = date9_str.Substring(6, 4) + date9_str.Substring(3, 2) + date9_str.Substring(0, 2) + date9_str.Substring(11, 2) + date9_str.Substring(14, 2) + date9_str.Substring(17, 2);
+                    }
+                    else
+                    {
+                        date9_sql = date9_str.Substring(6, 4) + date9_str.Substring(3, 2) + date9_str.Substring(0, 2) + "0" + date9_str.Substring(11, 1) + date9_str.Substring(13, 2) + date9_str.Substring(16, 2);
+                    }
+
+
+                    date10_str = date10.ToString();
+
+                    if (date10_str.Length == 19)
+                    {
+                        date10_sql = date10_str.Substring(6, 4) + date10_str.Substring(3, 2) + date10_str.Substring(0, 2) + date10_str.Substring(11, 2) + date10_str.Substring(14, 2) + date10_str.Substring(17, 2);
+                    }
+                    else
+                    {
+                        date10_sql = date10_str.Substring(6, 4) + date10_str.Substring(3, 2) + date10_str.Substring(0, 2) + "0" + date10_str.Substring(11, 1) + date10_str.Substring(13, 2) + date10_str.Substring(16, 2);
+                    } 
+
+                    
+                    result17 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro56_active FROM electro56 where electro56_datetime =" + date9_sql + " LIMIT 0,1", conn_str);
+                    result18 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro56_reactive FROM electro56 where electro56_datetime =" + date9_sql + " LIMIT 0,1", conn_str);
+
+                    result19 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro56_active FROM electro56 where electro56_datetime =" + date10_sql + " LIMIT 0,1", conn_str);
+                    result20 = MySqlLib.MySqlData.MySqlExecute.SqlScalar("SELECT electro56_reactive FROM electro56 where electro56_datetime =" + date10_sql + " LIMIT 0,1", conn_str);
+
+
+                    active56 = active56 + Convert.ToDecimal(result17.ResultText) / 2 + Convert.ToDecimal(result19.ResultText) / 2;
+                    reactive56 = reactive56 + Convert.ToDecimal(result18.ResultText) / 2 + Convert.ToDecimal(result20.ResultText) / 2;
+
+                    date5 = date5.AddMinutes(+60);
+                    date6 = date6.AddMinutes(+60);
+                    date7 = date7.AddMinutes(+60);
+                    date8 = date8.AddMinutes(+60);
+                    date9 = date9.AddMinutes(+60);
+                    date10 = date10.AddMinutes(+60);
+
+                }
+                
+                date42_arr[k] = date5_str.Substring(0, 2) + "." + date5_str.Substring(3, 2) + "." + date5_str.Substring(6, 4);
+                active42_arr[k] = Convert.ToString(active42); 
+                reactive42_arr[k] = Convert.ToString(reactive42);
+
+                date55_arr[k] = date7_str.Substring(0, 2) + "." + date7_str.Substring(3, 2) + "." + date7_str.Substring(6, 4);
+                active55_arr[k] = Convert.ToString(active55);
+                reactive55_arr[k] = Convert.ToString(reactive55);
+
+                date56_arr[k] = date9_str.Substring(0, 2) + "." + date9_str.Substring(3, 2) + "." + date9_str.Substring(6, 4);
+                active56_arr[k] = Convert.ToString(active56);
+                reactive56_arr[k] = Convert.ToString(reactive56); 
+                
+                date5 = date5.AddDays(-2);
+                date6 = date6.AddDays(-2);
+                date7 = date7.AddDays(-2);
+                date8 = date8.AddDays(-2);
+                date9 = date9.AddDays(-2);
+                date10 = date10.AddDays(-2);
+            }
+
+            for (int k = 0; k <= 11; k++)
+            {
+                ListViewItem lvi7, lvi8, lvi9;
+                ListViewItem.ListViewSubItem lvsi14, lvsi15, lvsi16, lvsi17, lvsi18, lvsi19;
+
+                lvi7 = new ListViewItem();
+                lvsi14 = new ListViewItem.ListViewSubItem();
+                lvsi15 = new ListViewItem.ListViewSubItem();
+
+                lvi8 = new ListViewItem();
+                lvsi16 = new ListViewItem.ListViewSubItem();
+                lvsi17 = new ListViewItem.ListViewSubItem();
+                
+                lvi9 = new ListViewItem();
+                lvsi18 = new ListViewItem.ListViewSubItem();
+                lvsi19 = new ListViewItem.ListViewSubItem();
+
+                lvi7.Text = date42_arr[k];
+                lvsi14.Text = active42_arr[k];
+                lvsi15.Text = reactive42_arr[k];
+
+                listView11.Items.Add(lvi7);
+                lvi7.SubItems.Add(lvsi14);
+                lvi7.SubItems.Add(lvsi15);
+
+                lvi8.Text = date55_arr[k];
+                lvsi16.Text = active55_arr[k];
+                lvsi17.Text = reactive55_arr[k];
+
+                listView9.Items.Add(lvi8);
+                lvi8.SubItems.Add(lvsi16);
+                lvi8.SubItems.Add(lvsi17);
+
+                lvi9.Text = date56_arr[k];
+                lvsi18.Text = active56_arr[k];
+                lvsi19.Text = reactive56_arr[k];
+
+                listView10.Items.Add(lvi9);
+                lvi9.SubItems.Add(lvsi18);
+                lvi9.SubItems.Add(lvsi19);
+            }
 
 
         }
@@ -4602,365 +4857,6 @@ namespace WindowsFormsApplication2
             button3.Enabled = true;
 
 
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            
-                Excel.Workbook m_workBook = null;
-                Excel.Worksheet m_workSheet = null;
-
-                Excel._Application m_app = null;
-                string filename = "D:\\Отчет от " +
-                    DateTime.Now.Day + "." +
-                    DateTime.Now.Month + "." +
-                    DateTime.Now.Year + "(Стоки).xls";// по умолчанию сохраняет в корень диска С:
-
-
-                button4.Enabled = false;
-
-
-                string conn_str = "Database=resources;Data Source=10.1.1.50;User Id=sa;Password=Rfnfgekmrf48";
-
-                MySqlLib.MySqlData.MySqlExecuteData.MyResultData result = new MySqlLib.MySqlData.MySqlExecuteData.MyResultData();
-
-                DateTime date1_w = new DateTime(2014, 1, 1);
-                DateTime date2_w = new DateTime(2014, 1, 1);
-                DateTime date22_w = new DateTime(2014, 1, 1);
-                DateTime date1_w_otch = new DateTime(2014, 1, 1);
-                DateTime date2_w_otch = new DateTime(2014, 1, 1);
-                DateTime date1_w_otch2 = new DateTime(2014, 1, 1);
-                DateTime date2_w_otch2 = new DateTime(2014, 1, 1);
-
-
-                if (radioButton10.Checked)
-                {
-                    DateTime date1_1 = DateTime.Now.AddMonths(-1);
-                    date1_w = new DateTime(date1_1.Year, date1_1.Month, 1, 0, 0, 0);
-
-                    date1_1 = DateTime.Now;
-                    date2_w = new DateTime(date1_1.Year, date1_1.Month, 1, 0, 0, 0);
-                }
-
-
-
-                if (radioButton11.Checked)
-                {
-                    if (comboBox4.Text == "Январь")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 1, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Февраль")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 2, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Март")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 3, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Апрель")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 4, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Май")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 5, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Июнь")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 6, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Июль")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 7, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Август")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 8, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Сентябрь")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 9, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Октябрь")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 10, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Ноябрь")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 11, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-                    if (comboBox4.Text == "Декабрь")
-                    {
-                        date1_w = new DateTime(Convert.ToInt32(textBox4.Text), 12, 1);
-                        date2_w = date1_w.AddMonths(1);
-                    }
-
-                }
-
-                if (radioButton12.Checked)
-                {
-                    date1_w = new DateTime(dateTimePicker7.Value.Year, dateTimePicker7.Value.Month, dateTimePicker7.Value.Day);
-                    date2_w = new DateTime(dateTimePicker8.Value.Year, dateTimePicker8.Value.Month, dateTimePicker8.Value.Day + 1);
-                }
-
-                date22_w = date2_w.AddDays(-1);
-                date1_w_otch = date1_w;
-                date2_w_otch = date2_w;
-                date1_w_otch2 = date1_w;
-                date2_w_otch2 = date2_w;
-
-                TimeSpan interval_w = date2_w - date1_w;
-
-                int days_w = Convert.ToInt32(Math.Floor(interval_w.TotalDays));
-                progressBar4.Maximum = Convert.ToInt32(days_w - 1);
-
-                try
-                {
-
-                    // Создание приложения Excel.
-                    m_app = new Microsoft.Office.Interop.Excel.Application();
-                    m_app.ReferenceStyle = Excel.XlReferenceStyle.xlA1;
-                    // Приложение "невидимо".
-                    m_app.Visible = true;
-                    // Приложение управляется пользователем.
-                    m_app.UserControl = true;
-                    // Добавление книги Excel.
-                    m_workBook = m_app.Workbooks.Add(Excel.XlWBATemplate.xlWBATWorksheet);
-
-
-                    // Связь со страницей Excel.
-
-                    m_app.StandardFont = "Courier new cyr";
-                    m_app.StandardFontSize = 10;
-
-                    m_workSheet = m_app.ActiveSheet as Excel.Worksheet;
-
-                    m_workSheet.Columns.ColumnWidth = 8.5;
-
-                    m_workSheet.Cells.NumberFormat = "@";
-
-                    m_workSheet.get_Range("A1").ColumnWidth = 10;
-
-                    m_workSheet.get_Range("A1", "K1").Merge(System.Type.Missing);
-                    m_workSheet.get_Range("A1").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                    m_workSheet.get_Range("A1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                    m_workSheet.Cells[1, 1] = "Отчет";
-
-                    m_workSheet.get_Range("A2", "K2").Merge(System.Type.Missing);
-                    m_workSheet.Cells[2, 1] = "от";
-                    m_workSheet.get_Range("A2").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                    m_workSheet.get_Range("A2").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("A3", "K3").Merge(System.Type.Missing);
-
-                    string Month = "";
-                    if (DateTime.Now.Month == 1) { Month = "января"; };
-                    if (DateTime.Now.Month == 2) { Month = "февраля"; };
-                    if (DateTime.Now.Month == 3) { Month = "марта"; };
-                    if (DateTime.Now.Month == 4) { Month = "апреля"; };
-                    if (DateTime.Now.Month == 5) { Month = "мая"; };
-                    if (DateTime.Now.Month == 6) { Month = "июня"; };
-                    if (DateTime.Now.Month == 7) { Month = "июля"; };
-                    if (DateTime.Now.Month == 8) { Month = "августа"; };
-                    if (DateTime.Now.Month == 9) { Month = "сентября"; };
-                    if (DateTime.Now.Month == 10) { Month = "октября"; };
-                    if (DateTime.Now.Month == 11) { Month = "ноября"; };
-                    if (DateTime.Now.Month == 12) { Month = "декабря"; };
-
-                    m_workSheet.Cells[3, 1] = DateTime.Now.Day + " " + Month + " " + DateTime.Now.Year + " г., " + DateTime.Now.Hour + " ч. " + DateTime.Now.Minute + " мин.";
-                    m_workSheet.get_Range("A3").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                    m_workSheet.get_Range("A3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("B5", "K5").Merge(System.Type.Missing);
-                    m_workSheet.Cells[5, 2] = "1. Показания счетчика объема: куб.м.";
-                    m_workSheet.get_Range("B5").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                    m_workSheet.get_Range("B5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("B7", "K7").Merge(System.Type.Missing);
-                    m_workSheet.Cells[7, 2] = "2. Показания счетчика наработки: ч. мин.";
-                    m_workSheet.get_Range("B7").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                    m_workSheet.get_Range("B7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("B9", "K9").Merge(System.Type.Missing);
-                    m_workSheet.Cells[9, 2] = "3. Перерывы учета:";
-                    m_workSheet.get_Range("B9").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                    m_workSheet.get_Range("B9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("B11", "K11").Merge(System.Type.Missing);
-                    m_workSheet.Cells[11, 2] = "4. Архив часовых значений:";
-                    m_workSheet.get_Range("B11").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                    m_workSheet.get_Range("B11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("B13", "C13").Merge(System.Type.Missing);
-                    m_workSheet.Cells[13, 2] = "Дата-Время";
-                    m_workSheet.get_Range("B13").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                    m_workSheet.get_Range("B13").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("E13", "G13").Merge(System.Type.Missing);
-                    m_workSheet.Cells[13, 5] = "Значение объема, куб.м";
-                    m_workSheet.get_Range("E13").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                    m_workSheet.get_Range("E13").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("I13", "K13").Merge(System.Type.Missing);
-                    m_workSheet.Cells[13, 9] = "Приращение, куб.м";
-                    m_workSheet.get_Range("I13").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                    m_workSheet.get_Range("I13").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    DateTime date3_w = new DateTime(2014, 1, 1);
-
-                    decimal fl1 = 0;
-                    decimal fl2 = 0;
-                    int m = 0;
-
-                    DateTime date3_w_otch = date2_w_otch.AddHours(-1);
-                    DateTime date3_w_otch2 = date2_w_otch2.AddDays(-1);
-                    
-
-                    for (int k = 0; k <= (interval_w.Days); k++)
-                    {
-                        
-                        for (int j = 24; j >= 1; j--)
-                        {
-
-                            m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2), "C" + Convert.ToString(15 + m * 2)).Merge(System.Type.Missing);
-                            m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2), "C" + Convert.ToString(15 + m * 2)).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                            m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2), "C" + Convert.ToString(15 + m * 2)).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                            m_workSheet.Cells[(15 + m * 2), 2] = date2_w_otch.Day + "." + date2_w_otch.Month + "-" + date2_w_otch.Hour + ":0" + date2_w_otch.Minute;
-
-                            string date2_str_w = date2_w_otch.ToString();
-                            string date3_str_w = date3_w_otch.ToString();
-                            string date2_sql_w;
-                            string date3_sql_w;
-
-
-                            if (date2_w_otch.Hour < 10)
-                            {
-                                date2_sql_w = date2_str_w.Substring(6, 4) + date2_str_w.Substring(3, 2) + date2_str_w.Substring(0, 2) + "0" + date2_w_otch.Hour + date2_w_otch.Minute + "0" + date2_w_otch.Second + "0";
-                            }
-                            else
-                            {
-                                date2_sql_w = date2_str_w.Substring(6, 4) + date2_str_w.Substring(3, 2) + date2_str_w.Substring(0, 2) + date2_w_otch.Hour + date2_w_otch.Minute + "0" + date2_w_otch.Second + "0";
-                            }
-
-                            if (date3_w_otch.Hour < 10)
-                            {
-                                date3_sql_w = date3_str_w.Substring(6, 4) + date3_str_w.Substring(3, 2) + date3_str_w.Substring(0, 2) + "0" + date3_w_otch.Hour + date3_w_otch.Minute + "0" + date3_w_otch.Second + "0";
-                            }
-                            else
-                            {
-                                date3_sql_w = date3_str_w.Substring(6, 4) + date3_str_w.Substring(3, 2) + date3_str_w.Substring(0, 2) + date3_w_otch.Hour + date3_w_otch.Minute + "0" + date3_w_otch.Second + "0";
-                            }
-
-                            result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM stoki where stoki_date =" + date2_sql_w + " LIMIT 0,1", conn_str);
-
-                         
-                            fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["stoki"].ToString());
-
-                            result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM stoki where stoki_date =" + date3_sql_w + " LIMIT 0,1", conn_str);
-
-
-                            fl2 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["stoki"].ToString());
-                            
-                          
-                            m_workSheet.Cells[(15 + m * 2), 5] = fl1;
-                            m_workSheet.Cells[(15 + m * 2 + 1), 9] = fl1-fl2;
-
-                            date2_w_otch = date2_w_otch.AddHours(-1);
-                            date3_w_otch = date3_w_otch.AddHours(-1);
-                            m = m + 1;
-               
-                        }
-                       // date2_w_otch = date2_w_otch.AddDays(-1);
-                       // date3_w_otch = date2_w_otch.AddDays(-1);
-                    }
-                   
-                    m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2 + 1), "K" + Convert.ToString(15 + m * 2 + 1)).Merge(System.Type.Missing);
-                    m_workSheet.Cells[(15 + m * 2 + 1), 2] = "5. Архив суточных значений:";
-                    m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2 + 1)).HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                    m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2 + 1)).VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2 + 3), "C" + Convert.ToString(15 + m * 2 + 3)).Merge(System.Type.Missing);
-                    m_workSheet.Cells[(15 + m * 2 + 3), 2] = "Дата-Время";
-                    m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2 + 3)).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                    m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2 + 3)).VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("E" + Convert.ToString(15 + m * 2 + 3), "G" + Convert.ToString(15 + m * 2 + 3)).Merge(System.Type.Missing);
-                    m_workSheet.Cells[(15 + m * 2 + 3), 5] = "Значение объема, куб.м";
-                    m_workSheet.get_Range("E" + Convert.ToString(15 + m * 2 + 3)).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                    m_workSheet.get_Range("E" + Convert.ToString(15 + m * 2 + 3)).VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    m_workSheet.get_Range("I" + Convert.ToString(15 + m * 2 + 3), "K" + Convert.ToString(15 + m * 2 + 3)).Merge(System.Type.Missing);
-                    m_workSheet.Cells[(15 + m * 2 + 3), 9] = "Приращение, куб.м";
-                    m_workSheet.get_Range("I" + Convert.ToString(15 + m * 2 + 3)).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                    m_workSheet.get_Range("I" + Convert.ToString(15 + m * 2 + 3)).VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                    for (int k = 0; k <= (interval_w.Days); k++)
-                    {
-                        m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2 + 5 + k * 2), "C" + Convert.ToString(15 + m * 2 + 5 + k * 2)).Merge(System.Type.Missing);
-                        m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2 + 5 + k * 2), "C" + Convert.ToString(15 + m * 2 + 5 + k * 2)).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B" + Convert.ToString(15 + m * 2 + 5 + k * 2), "C" + Convert.ToString(15 + m * 2 + 5 + k * 2)).HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.Cells[(15 + m * 2 + 5 + k * 2), 2] = date2_w_otch2.Day + "." + date2_w_otch2.Month + "-" + date2_w_otch2.Hour + ":0" + date2_w_otch2.Minute;
-
-
-                        string date2_str_w2 = date2_w_otch2.ToString();
-                        string date3_str_w2 = date3_w_otch2.ToString();
-                        string date2_sql_w2;
-                        string date3_sql_w2;
-
-
-                        date2_sql_w2 = date2_str_w2.Substring(6, 4) + date2_str_w2.Substring(3, 2) + date2_str_w2.Substring(0, 2) + "000000";
-
-                        date3_sql_w2 = date3_str_w2.Substring(6, 4) + date3_str_w2.Substring(3, 2) + date3_str_w2.Substring(0, 2) + "000000";
-
-
-                        result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM stoki where stoki_date =" + date2_sql_w2 + " LIMIT 0,1", conn_str);
-
-
-                        fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["stoki"].ToString());
-
-                        result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM stoki where stoki_date =" + date3_sql_w2 + " LIMIT 0,1", conn_str);
-
-
-                        fl2 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["stoki"].ToString());
-
-
-                        m_workSheet.Cells[(15 + m * 2 + 5 + k * 2), 5] = fl1;
-                        if (k != interval_w.Days)
-                        {
-                            m_workSheet.Cells[(15 + m * 2 + 5 + k * 2 + 1), 9] = fl1 - fl2;
-                        }
-                        date3_w_otch2 = date3_w_otch2.AddDays(-1);
-                        date2_w_otch2 = date2_w_otch2.AddDays(-1);
-                    }
-                
-                }
-
-                finally
-                {
-                    // Закрытие книги.
-                    //m_workBook.Close(false, "", Type.Missing);
-                    // Закрытие приложения Excel.
-                    //m_app.Quit();
-
-                    m_workBook = null;
-                    m_workSheet = null;
-                    m_app = null;
-                    GC.Collect();
-                }
-                button4.Enabled = true;
-            
         }
 
 

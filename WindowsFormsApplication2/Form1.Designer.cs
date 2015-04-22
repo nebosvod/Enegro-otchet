@@ -56,6 +56,35 @@
             this.shapeContainer1 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape1 = new Microsoft.VisualBasic.PowerPacks.LineShape();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabControl4 = new System.Windows.Forms.TabControl();
+            this.tabPage10 = new System.Windows.Forms.TabPage();
+            this.listView9 = new System.Windows.Forms.ListView();
+            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader26 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader27 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.listView10 = new System.Windows.Forms.ListView();
+            this.columnHeader28 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader29 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader30 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.listView11 = new System.Windows.Forms.ListView();
+            this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader32 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label7 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.comboBox5 = new System.Windows.Forms.ComboBox();
+            this.radioButton13 = new System.Windows.Forms.RadioButton();
+            this.radioButton14 = new System.Windows.Forms.RadioButton();
+            this.radioButton15 = new System.Windows.Forms.RadioButton();
+            this.dateTimePicker9 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker10 = new System.Windows.Forms.DateTimePicker();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.checkBox9 = new System.Windows.Forms.CheckBox();
+            this.progressBar5 = new System.Windows.Forms.ProgressBar();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl2 = new System.Windows.Forms.TabControl();
@@ -137,13 +166,17 @@
             this.radioButton10 = new System.Windows.Forms.RadioButton();
             this.shapeContainer4 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape4 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabControl4.SuspendLayout();
+            this.tabPage10.SuspendLayout();
+            this.tabPage11.SuspendLayout();
+            this.tabPage12.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -158,7 +191,6 @@
             this.groupBox6.SuspendLayout();
             this.tabPage9.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -463,6 +495,12 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.tabControl4);
+            this.tabPage2.Controls.Add(this.label7);
+            this.tabPage2.Controls.Add(this.button5);
+            this.tabPage2.Controls.Add(this.groupBox8);
+            this.tabPage2.Controls.Add(this.groupBox9);
+            this.tabPage2.Controls.Add(this.progressBar5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -470,6 +508,286 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Электроэнергия";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabControl4
+            // 
+            this.tabControl4.Controls.Add(this.tabPage10);
+            this.tabControl4.Controls.Add(this.tabPage11);
+            this.tabControl4.Controls.Add(this.tabPage12);
+            this.tabControl4.Location = new System.Drawing.Point(455, 25);
+            this.tabControl4.Name = "tabControl4";
+            this.tabControl4.SelectedIndex = 0;
+            this.tabControl4.Size = new System.Drawing.Size(374, 262);
+            this.tabControl4.TabIndex = 29;
+            // 
+            // tabPage10
+            // 
+            this.tabPage10.Controls.Add(this.listView9);
+            this.tabPage10.Location = new System.Drawing.Point(4, 22);
+            this.tabPage10.Name = "tabPage10";
+            this.tabPage10.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage10.Size = new System.Drawing.Size(366, 236);
+            this.tabPage10.TabIndex = 0;
+            this.tabPage10.Text = "ТП1 335385";
+            this.tabPage10.UseVisualStyleBackColor = true;
+            // 
+            // listView9
+            // 
+            this.listView9.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader25,
+            this.columnHeader26,
+            this.columnHeader27});
+            this.listView9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView9.GridLines = true;
+            this.listView9.Location = new System.Drawing.Point(0, 0);
+            this.listView9.Name = "listView9";
+            this.listView9.Size = new System.Drawing.Size(360, 236);
+            this.listView9.TabIndex = 16;
+            this.listView9.UseCompatibleStateImageBehavior = false;
+            this.listView9.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader25
+            // 
+            this.columnHeader25.Text = "Дата";
+            this.columnHeader25.Width = 68;
+            // 
+            // columnHeader26
+            // 
+            this.columnHeader26.Text = "Активная мощность";
+            this.columnHeader26.Width = 126;
+            // 
+            // columnHeader27
+            // 
+            this.columnHeader27.Text = "Реактивная мощность";
+            this.columnHeader27.Width = 132;
+            // 
+            // tabPage11
+            // 
+            this.tabPage11.Controls.Add(this.listView10);
+            this.tabPage11.Location = new System.Drawing.Point(4, 22);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage11.Size = new System.Drawing.Size(366, 236);
+            this.tabPage11.TabIndex = 1;
+            this.tabPage11.Text = "ТП2 1753886";
+            this.tabPage11.UseVisualStyleBackColor = true;
+            // 
+            // listView10
+            // 
+            this.listView10.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader28,
+            this.columnHeader29,
+            this.columnHeader30});
+            this.listView10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView10.GridLines = true;
+            this.listView10.Location = new System.Drawing.Point(0, 0);
+            this.listView10.Name = "listView10";
+            this.listView10.Size = new System.Drawing.Size(360, 236);
+            this.listView10.TabIndex = 19;
+            this.listView10.UseCompatibleStateImageBehavior = false;
+            this.listView10.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader28
+            // 
+            this.columnHeader28.Text = "Дата";
+            this.columnHeader28.Width = 68;
+            // 
+            // columnHeader29
+            // 
+            this.columnHeader29.Text = "Активная мощность";
+            this.columnHeader29.Width = 127;
+            // 
+            // columnHeader30
+            // 
+            this.columnHeader30.Text = "Реактивная мощность";
+            this.columnHeader30.Width = 133;
+            // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.listView11);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Size = new System.Drawing.Size(366, 236);
+            this.tabPage12.TabIndex = 2;
+            this.tabPage12.Text = "Очистные 4479066";
+            this.tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // listView11
+            // 
+            this.listView11.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader31,
+            this.columnHeader32,
+            this.columnHeader33});
+            this.listView11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView11.GridLines = true;
+            this.listView11.Location = new System.Drawing.Point(3, 0);
+            this.listView11.Name = "listView11";
+            this.listView11.Size = new System.Drawing.Size(360, 236);
+            this.listView11.TabIndex = 17;
+            this.listView11.UseCompatibleStateImageBehavior = false;
+            this.listView11.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader31
+            // 
+            this.columnHeader31.Text = "Дата";
+            this.columnHeader31.Width = 68;
+            // 
+            // columnHeader32
+            // 
+            this.columnHeader32.Text = "Активная мощность";
+            this.columnHeader32.Width = 126;
+            // 
+            // columnHeader33
+            // 
+            this.columnHeader33.Text = "Реактивная мощность";
+            this.columnHeader33.Width = 132;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(540, 6);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(156, 13);
+            this.label7.TabIndex = 28;
+            this.label7.Text = "Данные за последние 5 дней\r\n";
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Location = new System.Drawing.Point(237, 153);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(116, 91);
+            this.button5.TabIndex = 6;
+            this.button5.Text = "Сформировать отчет";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.textBox5);
+            this.groupBox8.Controls.Add(this.comboBox5);
+            this.groupBox8.Controls.Add(this.radioButton13);
+            this.groupBox8.Controls.Add(this.radioButton14);
+            this.groupBox8.Controls.Add(this.radioButton15);
+            this.groupBox8.Controls.Add(this.dateTimePicker9);
+            this.groupBox8.Controls.Add(this.dateTimePicker10);
+            this.groupBox8.Location = new System.Drawing.Point(8, 6);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(359, 101);
+            this.groupBox8.TabIndex = 9;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Настройка периода отчета";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Enabled = false;
+            this.textBox5.Location = new System.Drawing.Point(266, 43);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(64, 20);
+            this.textBox5.TabIndex = 10;
+            // 
+            // comboBox5
+            // 
+            this.comboBox5.Enabled = false;
+            this.comboBox5.FormattingEnabled = true;
+            this.comboBox5.Items.AddRange(new object[] {
+            "Январь",
+            "Февраль",
+            "Март",
+            "Апрель",
+            "Май",
+            "Июнь",
+            "Июль",
+            "Август",
+            "Сентярь",
+            "Октябрь",
+            "Ноябрь",
+            "Декабрь"});
+            this.comboBox5.Location = new System.Drawing.Point(172, 43);
+            this.comboBox5.Name = "comboBox5";
+            this.comboBox5.Size = new System.Drawing.Size(87, 21);
+            this.comboBox5.TabIndex = 9;
+            // 
+            // radioButton13
+            // 
+            this.radioButton13.AutoSize = true;
+            this.radioButton13.Location = new System.Drawing.Point(20, 69);
+            this.radioButton13.Name = "radioButton13";
+            this.radioButton13.Size = new System.Drawing.Size(140, 17);
+            this.radioButton13.TabIndex = 8;
+            this.radioButton13.Text = "Произвольный период";
+            this.radioButton13.UseVisualStyleBackColor = true;
+            // 
+            // radioButton14
+            // 
+            this.radioButton14.AutoSize = true;
+            this.radioButton14.Location = new System.Drawing.Point(20, 43);
+            this.radioButton14.Name = "radioButton14";
+            this.radioButton14.Size = new System.Drawing.Size(136, 17);
+            this.radioButton14.TabIndex = 7;
+            this.radioButton14.Text = "Произвольный месяц";
+            this.radioButton14.UseVisualStyleBackColor = true;
+            // 
+            // radioButton15
+            // 
+            this.radioButton15.AutoSize = true;
+            this.radioButton15.Checked = true;
+            this.radioButton15.Location = new System.Drawing.Point(20, 19);
+            this.radioButton15.Name = "radioButton15";
+            this.radioButton15.Size = new System.Drawing.Size(126, 17);
+            this.radioButton15.TabIndex = 6;
+            this.radioButton15.TabStop = true;
+            this.radioButton15.Text = "Предыдущий месяц";
+            this.radioButton15.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker9
+            // 
+            this.dateTimePicker9.Enabled = false;
+            this.dateTimePicker9.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker9.Location = new System.Drawing.Point(265, 69);
+            this.dateTimePicker9.Name = "dateTimePicker9";
+            this.dateTimePicker9.Size = new System.Drawing.Size(82, 20);
+            this.dateTimePicker9.TabIndex = 5;
+            // 
+            // dateTimePicker10
+            // 
+            this.dateTimePicker10.Enabled = false;
+            this.dateTimePicker10.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker10.Location = new System.Drawing.Point(172, 69);
+            this.dateTimePicker10.Name = "dateTimePicker10";
+            this.dateTimePicker10.Size = new System.Drawing.Size(87, 20);
+            this.dateTimePicker10.TabIndex = 4;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.checkBox9);
+            this.groupBox9.Location = new System.Drawing.Point(8, 130);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(209, 128);
+            this.groupBox9.TabIndex = 8;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Настройки формирования отчета";
+            // 
+            // checkBox9
+            // 
+            this.checkBox9.AutoSize = true;
+            this.checkBox9.Checked = true;
+            this.checkBox9.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox9.Location = new System.Drawing.Point(18, 28);
+            this.checkBox9.Name = "checkBox9";
+            this.checkBox9.Size = new System.Drawing.Size(131, 17);
+            this.checkBox9.TabIndex = 2;
+            this.checkBox9.Text = "Интервальный отчет";
+            this.checkBox9.UseVisualStyleBackColor = true;
+            // 
+            // progressBar5
+            // 
+            this.progressBar5.Location = new System.Drawing.Point(8, 264);
+            this.progressBar5.Name = "progressBar5";
+            this.progressBar5.Size = new System.Drawing.Size(359, 12);
+            this.progressBar5.Step = 1;
+            this.progressBar5.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar5.TabIndex = 7;
             // 
             // tabPage3
             // 
@@ -1075,8 +1393,6 @@
             // 
             // tabPage9
             // 
-            this.tabPage9.Controls.Add(this.checkBox10);
-            this.tabPage9.Controls.Add(this.groupBox8);
             this.tabPage9.Controls.Add(this.button4);
             this.tabPage9.Controls.Add(this.progressBar4);
             this.tabPage9.Controls.Add(this.label5);
@@ -1101,7 +1417,6 @@
             this.button4.TabIndex = 29;
             this.button4.Text = "Сформировать отчет";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // progressBar4
             // 
@@ -1298,40 +1613,6 @@
             this.lineShape4.Y1 = 9;
             this.lineShape4.Y2 = 280;
             // 
-            // checkBox9
-            // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Checked = true;
-            this.checkBox9.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox9.Location = new System.Drawing.Point(18, 28);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(155, 17);
-            this.checkBox9.TabIndex = 2;
-            this.checkBox9.Text = "Архив суточных значений";
-            this.checkBox9.UseVisualStyleBackColor = true;
-            // 
-            // checkBox10
-            // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Checked = true;
-            this.checkBox10.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox10.Location = new System.Drawing.Point(26, 181);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(151, 17);
-            this.checkBox10.TabIndex = 32;
-            this.checkBox10.Text = "Архив часовых значений";
-            this.checkBox10.UseVisualStyleBackColor = true;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.checkBox9);
-            this.groupBox8.Location = new System.Drawing.Point(8, 130);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(209, 128);
-            this.groupBox8.TabIndex = 33;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Настройки формирования отчета";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1348,6 +1629,16 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.tabControl4.ResumeLayout(false);
+            this.tabPage10.ResumeLayout(false);
+            this.tabPage11.ResumeLayout(false);
+            this.tabPage12.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.tabControl2.ResumeLayout(false);
@@ -1370,8 +1661,6 @@
             this.tabPage9.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1487,9 +1776,35 @@
         private System.Windows.Forms.RadioButton radioButton10;
         private Microsoft.VisualBasic.PowerPacks.ShapeContainer shapeContainer4;
         private Microsoft.VisualBasic.PowerPacks.LineShape lineShape4;
-        private System.Windows.Forms.CheckBox checkBox10;
+        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.ComboBox comboBox5;
+        private System.Windows.Forms.RadioButton radioButton13;
+        private System.Windows.Forms.RadioButton radioButton14;
+        private System.Windows.Forms.RadioButton radioButton15;
+        private System.Windows.Forms.DateTimePicker dateTimePicker9;
+        private System.Windows.Forms.DateTimePicker dateTimePicker10;
+        private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.CheckBox checkBox9;
+        private System.Windows.Forms.ProgressBar progressBar5;
+        private System.Windows.Forms.TabControl tabControl4;
+        private System.Windows.Forms.TabPage tabPage10;
+        private System.Windows.Forms.ListView listView9;
+        private System.Windows.Forms.ColumnHeader columnHeader25;
+        private System.Windows.Forms.ColumnHeader columnHeader26;
+        private System.Windows.Forms.ColumnHeader columnHeader27;
+        private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.ListView listView10;
+        private System.Windows.Forms.ColumnHeader columnHeader28;
+        private System.Windows.Forms.ColumnHeader columnHeader29;
+        private System.Windows.Forms.ColumnHeader columnHeader30;
+        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ListView listView11;
+        private System.Windows.Forms.ColumnHeader columnHeader31;
+        private System.Windows.Forms.ColumnHeader columnHeader32;
+        private System.Windows.Forms.ColumnHeader columnHeader33;
     }
 }
 
