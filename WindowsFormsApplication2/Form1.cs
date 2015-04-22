@@ -5191,35 +5191,16 @@ namespace WindowsFormsApplication2
 
                         for (int k = 0; k <= (interval_w.Days - 1); k++)
                         {
-                            date1_w = date1_w.AddMinutes(30);
-
-                            if ((date1_w.Month < 10) & (date1_w.Day < 10) & (date1_w.Hour < 10))
+                            for (int j = 1; j <= 24; j++)
                             {
-                                date_sql = date1_w.Year + "-" + "0" + date1_w.Month + "-" + "0" + date1_w.Day + " " + "0" + date1_w.Hour + ":" + date1_w.Minute + ":00"; 
-                            
-                            }
+                                date1_w = date1_w.AddMinutes(30);
 
-                            if ((date1_w.Month < 10) & (date1_w.Day < 10) & (date1_w.Hour >= 10))
-                            {
-                                date_sql = date1_w.Year + "-" + "0" + date1_w.Month + "-" + "0" + date1_w.Day + " " + date1_w.Hour + ":" + date1_w.Minute + ":00";
-
-                            }
-
-                            if ((date1_w.Month < 10) & (date1_w.Day >= 10) & (date1_w.Hour >= 10))
-                            {
-                                date_sql = date1_w.Year + "-" + "0" + date1_w.Month + "-" + date1_w.Day + " " + date1_w.Hour + ":" + date1_w.Minute + ":00";
-
-                            }
-
-                            if ((date1_w.Month >= 10) & (date1_w.Day >= 10) & (date1_w.Hour >= 10))
-                            {
                                 date_sql = date1_w.Year + "-" + date1_w.Month + "-" + date1_w.Day + " " + date1_w.Hour + ":" + date1_w.Minute + ":00";
+                                result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro55 where electro55_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
+                                fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro55_active"].ToString());
 
                             }
 
-
-                            result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro55 where electro55_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
-                            fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro55_active"].ToString());
                         }
                         
 
