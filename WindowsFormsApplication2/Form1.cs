@@ -5185,20 +5185,34 @@ namespace WindowsFormsApplication2
                         m_workSheet.get_Range("B37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[37, 2] = "31";
 
+                        m_workSheet.get_Range("C7", "Z37").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        m_workSheet.get_Range("C7", "Z37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
                         TimeSpan interval_w = date2_w - date1_w;
                         decimal fl1 = 0;
-                        string date_sql = ""; 
+                        string date_sql = "";
+                        decimal[] act = new decimal[48];
+ 
 
                         for (int k = 0; k <= (interval_w.Days - 1); k++)
                         {
-                            for (int j = 1; j <= 24; j++)
+
+                            for (int j = 1; j <= 48; j++)
                             {
                                 date1_w = date1_w.AddMinutes(30);
 
                                 date_sql = date1_w.Year + "-" + date1_w.Month + "-" + date1_w.Day + " " + date1_w.Hour + ":" + date1_w.Minute + ":00";
                                 result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro55 where electro55_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
                                 fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro55_active"].ToString());
+                                act[j - 1] = fl1;
 
+                            }
+                          
+                            for (int j = 1; j <= 48; j++)
+                            {
+                                
+                                m_workSheet.Cells[7 + k, 3 + (j-1)/2] = (act[j - 1] + act[j]) / 2;
+                                j++;
                             }
 
                         }
