@@ -90,3 +90,25 @@ C:\Documents and Settings\sa\Мои документы\Visual Studio 2010\Projec
 C:\Documents and Settings\sa\Мои документы\Visual Studio 2010\Projects\WindowsFormsApplication2_new\WindowsFormsApplication2\bin\Debug\System.Xml.dll
 C:\Documents and Settings\sa\Мои документы\Visual Studio 2010\Projects\WindowsFormsApplication2_new\WindowsFormsApplication2\bin\Debug\System.Xml.Linq.dll
 C:\Documents and Settings\sa\Мои документы\Visual Studio 2010\Projects\WindowsFormsApplication2_new\WindowsFormsApplication2\bin\Debug\ru\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.exe
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.pdb
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.pdb
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\Microsoft.CSharp.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\Microsoft.VisualBasic.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\Microsoft.VisualBasic.PowerPacks.Vs.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\System.Data.DataSetExtensions.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\System.Data.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\System.Deployment.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\System.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\System.Drawing.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\System.Windows.Forms.DataVisualization.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\System.Windows.Forms.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\System.Xml.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\System.Xml.Linq.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\ru\Microsoft.VisualBasic.PowerPacks.Vs.resources.dll
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.Form1.resources
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.Properties.Resources.resources
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Projects\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\GenerateResource.write.1.tlog

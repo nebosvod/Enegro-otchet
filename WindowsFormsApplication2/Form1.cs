@@ -4859,21 +4859,77 @@ namespace WindowsFormsApplication2
 
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+           Excel.Workbook m_workBook = null;
+           Excel.Worksheet m_workSheet = null;
+           Excel._Application m_app = null; 
+            
+            DateTime date1_w = new DateTime(2014, 1, 1);
+            DateTime date2_w = new DateTime(2014, 1, 1);
+            
+            try
+                    {
+
+                        // Создание приложения Excel.
+                        m_app = new Microsoft.Office.Interop.Excel.Application();
+                        m_app.ReferenceStyle = Excel.XlReferenceStyle.xlA1;
+                        // Приложение "невидимо".
+                        m_app.Visible = true;
+                        // Приложение управляется пользователем.
+                        m_app.UserControl = true;
+                        // Добавление книги Excel.
+                        m_workBook = m_app.Workbooks.Add(Excel.XlWBATemplate.xlWBATWorksheet);
+
+                         if (radioButton15.Checked)
+                            {
+                             DateTime date1_1 = DateTime.Now.AddMonths(-1);
+                             date1_w = new DateTime(date1_1.Year, date1_1.Month, 1, 0, 0, 0);
+
+                             date1_1 = DateTime.Now;
+                             date2_w = new DateTime(date1_1.Year, date1_1.Month, 1, 0, 0, 0);
+                             }
+                        // Связь со страницей Excel.
+
+                        m_app.StandardFont = "Calibri";
+                        m_app.StandardFontSize = 11;
+
+                        m_workSheet = m_app.ActiveSheet as Excel.Worksheet;
+
+                        m_workSheet.Columns.ColumnWidth = 11.29;
+
+                        m_workSheet.Cells.NumberFormat = "@";
+
+                        m_workSheet.get_Range("A1").ColumnWidth = 23.29;
+                        m_workSheet.get_Range("A1").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("A1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("A1").Font.Bold = true;
+                        m_workSheet.Cells[1, 1] = "ОАО \"Аньковское\"";
+
+                        m_workSheet.get_Range("A2").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("A2").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("A2").Font.Bold = true;
+                        m_workSheet.Cells[2, 1] = "Отчет за потребленную электроэнергию и мощность, " + date1_w.Month + " " + date1_w.Year + " г.";
 
 
 
+             }
 
+                    finally
+                    {
+                        // Закрытие книги.
+                       // m_workBook.Close(false, "", Type.Missing);
+                        // Закрытие приложения Excel.
+                       // m_app.Quit();
 
+                        m_workBook = null;
+                        m_workSheet = null;
+                        m_app = null;
+                        GC.Collect();
+                    }
+                
+        }
 
-
-
-
-
-
-
-
-
-        
 
 
 
