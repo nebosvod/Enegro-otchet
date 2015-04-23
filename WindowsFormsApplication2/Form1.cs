@@ -4903,7 +4903,8 @@ namespace WindowsFormsApplication2
 
                         m_workSheet.Columns.ColumnWidth = 11.29;
 
-                        m_workSheet.Cells.NumberFormat = "@";
+                       // m_workSheet.Cells.NumberFormat = "@";
+                        m_workSheet.Cells.NumberFormat = "General";
 
                         m_workSheet.get_Range("A1").ColumnWidth = 23.29;
                         m_workSheet.get_Range("A1").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
@@ -4959,233 +4960,77 @@ namespace WindowsFormsApplication2
                         m_workSheet.get_Range("B5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[5, 2] = "Число расчетного месяца";
 
+
+
                         m_workSheet.get_Range("C5", "Z5").Merge(System.Type.Missing);
                         m_workSheet.get_Range("C5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                         m_workSheet.get_Range("C5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[5, 3] = "Время суток";
 
-                        m_workSheet.get_Range("C6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("C6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("C6", "Z6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        m_workSheet.get_Range("C6", "Z6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
                         m_workSheet.Cells[6, 3] = "0.00-1.00";
-                        
-                        m_workSheet.get_Range("D6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("D6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 4] = "1.00-2.00";
-
-                        m_workSheet.get_Range("E6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("E6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 5] = "2.00-3.00";
-
-                        m_workSheet.get_Range("F6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("F6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 6] = "3.00-4.00";
-
-                        m_workSheet.get_Range("G6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("G6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 7] = "4.00-5.00";
-
-                        m_workSheet.get_Range("H6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("H6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 8] = "5.00-6.00";
-
-                        m_workSheet.get_Range("I6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("I6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 9] = "6.00-7.00";
-                        
-                        m_workSheet.get_Range("J6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("J6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 10] = "7.00-8.00";
-
-                        m_workSheet.get_Range("K6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("K6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 11] = "8.00-9.00";
-
-                        m_workSheet.get_Range("L6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("L6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 12] = "9.00-10.00";
-
-                        m_workSheet.get_Range("M6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("M6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 13] = "10.00-11.00";
-
-                        m_workSheet.get_Range("N6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("N6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 14] = "11.00-12.00";
-
-                        m_workSheet.get_Range("O6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("O6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 15] = "12.00-13.00";
-
-                        m_workSheet.get_Range("P6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("P6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 16] = "13.00-14.00";
-
-                        m_workSheet.get_Range("Q6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("Q6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 17] = "14.00-15.00";
-
-                        m_workSheet.get_Range("R6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("R6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 18] = "15.00-16.00";
-
-                        m_workSheet.get_Range("S6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("S6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 19] = "16.00-17.00";
-
-                        m_workSheet.get_Range("T6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("T6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 20] = "17.00-18.00";
-
-                        m_workSheet.get_Range("U6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("U6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 21] = "18.00-19.00";
-
-                        m_workSheet.get_Range("V6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("V6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 22] = "19.00-20.00";
-
-                        m_workSheet.get_Range("W6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("W6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 23] = "20.00-21.00";
-
-                        m_workSheet.get_Range("X6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("X6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 24] = "21.00-22.00";
-
-                        m_workSheet.get_Range("Y6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("Y6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 25] = "22.00-23.00";
-
-                        m_workSheet.get_Range("Z6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("Z6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[6, 26] = "23.00-24.00";
 
+                        m_workSheet.get_Range("B7", "B37").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        m_workSheet.get_Range("B7", "B37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
 
-                        m_workSheet.get_Range("B7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[7, 2] = "1";
-
-                        m_workSheet.get_Range("B8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[8, 2] = "2";
-
-                        m_workSheet.get_Range("B9").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[9, 2] = "3";
-
-                        m_workSheet.get_Range("B10").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B10").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[10, 2] = "4";
-
-                        m_workSheet.get_Range("B11").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[11, 2] = "5";
-
-                        m_workSheet.get_Range("B12").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B12").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[12, 2] = "6";
-
-                        m_workSheet.get_Range("B13").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B13").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[13, 2] = "7";
-
-                        m_workSheet.get_Range("B14").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B14").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[14, 2] = "8";
-
-                        m_workSheet.get_Range("B15").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B15").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[15, 2] = "9";
-
-                        m_workSheet.get_Range("B16").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B16").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[16, 2] = "10";
-
-                        m_workSheet.get_Range("B17").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B17").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[17, 2] = "11";
-
-                        m_workSheet.get_Range("B18").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B18").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[18, 2] = "12";
-
-                        m_workSheet.get_Range("B19").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B19").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[19, 2] = "13";
-
-                        m_workSheet.get_Range("B20").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B20").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[20, 2] = "14";
-
-                        m_workSheet.get_Range("B21").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B21").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[21, 2] = "15";
-
-                        m_workSheet.get_Range("B22").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B22").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[22, 2] = "16";
-
-                        m_workSheet.get_Range("B23").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B23").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[23, 2] = "17";
-
-                        m_workSheet.get_Range("B24").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B24").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[24, 2] = "18";
-
-                        m_workSheet.get_Range("B25").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B25").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[25, 2] = "19";
-
-                        m_workSheet.get_Range("B26").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B26").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[26, 2] = "20";
-
-                        m_workSheet.get_Range("B27").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B27").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[27, 2] = "21";
-
-                        m_workSheet.get_Range("B28").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B28").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[28, 2] = "22";
-
-                        m_workSheet.get_Range("B29").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B29").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[29, 2] = "23";
-
-                        m_workSheet.get_Range("B30").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B30").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[30, 2] = "24";
-
-                        m_workSheet.get_Range("B31").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B31").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[31, 2] = "25";
-
-                        m_workSheet.get_Range("B32").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B32").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[32, 2] = "26";
-
-                        m_workSheet.get_Range("B33").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B33").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[33, 2] = "27";
-
-                        m_workSheet.get_Range("B34").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B34").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[34, 2] = "28";
-
-                        m_workSheet.get_Range("B35").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B35").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[35, 2] = "29";
-
-                        m_workSheet.get_Range("B36").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B36").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[36, 2] = "30";
-
-                        m_workSheet.get_Range("B37").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        m_workSheet.get_Range("B37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.Cells[37, 2] = "31";
 
-                        m_workSheet.get_Range("C7", "Z37").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        m_workSheet.get_Range("C7", "Z37").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
                         m_workSheet.get_Range("C7", "Z37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
 
                         TimeSpan interval_w = date2_w - date1_w;
@@ -5216,6 +5061,17 @@ namespace WindowsFormsApplication2
                             }
 
                         }
+
+                        m_workSheet.get_Range("Y38").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("Y38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("Y38").Font.Bold = true;
+                        m_workSheet.Cells[38, 25] = "ИТОГО";
+
+                        m_workSheet.get_Range("Z38").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                        m_workSheet.get_Range("Z38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("Z38").Font.Bold = true;
+                        m_workSheet.Cells[38, 26] = "=SUM(C7:Z37)*B4";
+                        
                         
 
 
