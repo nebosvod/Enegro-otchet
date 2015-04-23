@@ -4885,6 +4885,8 @@ namespace WindowsFormsApplication2
                         m_app.UserControl = true;
                         // Добавление книги Excel.
                         m_workBook = m_app.Workbooks.Add(Excel.XlWBATemplate.xlWBATWorksheet);
+                        m_workBook.Worksheets.Add();
+                        m_workBook.Worksheets.Add();
 
                          if (radioButton15.Checked)
                             {
@@ -4895,11 +4897,14 @@ namespace WindowsFormsApplication2
                              date2_w = new DateTime(date1_1.Year, date1_1.Month, 1, 0, 0, 0);
                              }
                         // Связь со страницей Excel.
-
+                    
                         m_app.StandardFont = "Calibri";
                         m_app.StandardFontSize = 11;
 
                         m_workSheet = m_app.ActiveSheet as Excel.Worksheet;
+                        m_workSheet.Name = "Worksheet";
+                        
+                        
 
                         m_workSheet.Columns.ColumnWidth = 11.29;
 
@@ -5049,7 +5054,20 @@ namespace WindowsFormsApplication2
 
                                 date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
                                 result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro55 where electro55_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
-                                fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro55_active"].ToString());
+
+                                try
+                                {
+                                    fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro55_active"].ToString());
+                                }
+                                catch (Exception ex)
+                                {
+                                    fl1 = 0;
+                                }
+                                finally
+                                {
+
+                                }
+
                                 act[j - 1] = fl1;
 
                             }
@@ -5158,7 +5176,20 @@ namespace WindowsFormsApplication2
 
                                 date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
                                 result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro56 where electro56_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
-                                fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro56_active"].ToString());
+
+                                try
+                                {
+                                    fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro56_active"].ToString());
+                                }
+                                catch (Exception ex)
+                                {
+                                    fl1 = 0;
+                                }
+                                finally
+                                {
+
+                                }
+
                                 act[j - 1] = fl1;
 
                             }
@@ -5301,7 +5332,7 @@ namespace WindowsFormsApplication2
                         m_workSheet.get_Range("Z106").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
                         m_workSheet.get_Range("Z106").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.get_Range("Z106").Font.Bold = true;
-                        m_workSheet.Cells[106, 26] = "=SUM(C41:Z71)*B40";
+                        m_workSheet.Cells[106, 26] = "=SUM(C75:Z105)*B74";
 
                         m_workSheet.get_Range("B75", "Z105").BorderAround();
                         m_workSheet.get_Range("B75", "Z105").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
@@ -5311,11 +5342,16 @@ namespace WindowsFormsApplication2
                         m_workSheet.get_Range("Y106", "Z106").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
                        // m_workSheet.get_Range("Y106", "Z106").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                        
-                        
+
+                        m_workSheet.get_Range("B109").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("B109").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.Cells[109, 2] = "Главный энергетик ____________ Носов В.В.";
 
 
 
+                        m_workBook.Sheets[2].Select();
+                        m_workSheet = m_app.ActiveSheet as Excel.Worksheet;
+                        m_workSheet.Name = "123";
              }
 
                     finally
