@@ -4890,7 +4890,7 @@ namespace WindowsFormsApplication2
                             {
                              DateTime date1_1 = DateTime.Now.AddMonths(-1);
                              date1_w = new DateTime(date1_1.Year, date1_1.Month, 1, 0, 0, 0);
-
+                           
                              date1_1 = DateTime.Now;
                              date2_w = new DateTime(date1_1.Year, date1_1.Month, 1, 0, 0, 0);
                              }
@@ -5037,16 +5037,17 @@ namespace WindowsFormsApplication2
                         decimal fl1 = 0;
                         string date_sql = "";
                         decimal[] act = new decimal[48];
- 
+                        
+                        DateTime date1_w2 = date1_w;
 
                         for (int k = 0; k <= (interval_w.Days - 1); k++)
                         {
 
                             for (int j = 1; j <= 48; j++)
                             {
-                                date1_w = date1_w.AddMinutes(30);
+                                date1_w2 = date1_w2.AddMinutes(30);
 
-                                date_sql = date1_w.Year + "-" + date1_w.Month + "-" + date1_w.Day + " " + date1_w.Hour + ":" + date1_w.Minute + ":00";
+                                date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
                                 result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro55 where electro55_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
                                 fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro55_active"].ToString());
                                 act[j - 1] = fl1;
@@ -5071,6 +5072,245 @@ namespace WindowsFormsApplication2
                         m_workSheet.get_Range("Z38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         m_workSheet.get_Range("Z38").Font.Bold = true;
                         m_workSheet.Cells[38, 26] = "=SUM(C7:Z37)*B4";
+
+                        m_workSheet.get_Range("B5", "Z37").BorderAround();
+                        m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                        m_workSheet.get_Range("Y38", "Z38").BorderAround();
+                        m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                       // m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                        //------
+
+                        m_workSheet.get_Range("A39").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("A39").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("A39").Font.Bold = false;
+                        m_workSheet.Cells[39, 1] = "Счетчик №";
+
+                        m_workSheet.get_Range("B39").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                        m_workSheet.get_Range("B39").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("B39").Font.Bold = true;
+                        m_workSheet.Cells[39, 2] = "1753886";
+
+                        m_workSheet.get_Range("A40").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("A40").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("A40").Font.Bold = false;
+                        m_workSheet.Cells[40, 1] = "Тр.тока (коэф)";
+
+                        m_workSheet.get_Range("B40").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                        m_workSheet.get_Range("B40").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("B40").Font.Bold = true;
+                        m_workSheet.Cells[40, 2] = "120";
+
+ 
+
+                        m_workSheet.get_Range("B41", "B71").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        m_workSheet.get_Range("B41", "B71").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+                        m_workSheet.Cells[41, 2] = "1";
+                        m_workSheet.Cells[42, 2] = "2";
+                        m_workSheet.Cells[43, 2] = "3";
+                        m_workSheet.Cells[44, 2] = "4";
+                        m_workSheet.Cells[45, 2] = "5";
+                        m_workSheet.Cells[46, 2] = "6";
+                        m_workSheet.Cells[47, 2] = "7";
+                        m_workSheet.Cells[48, 2] = "8";
+                        m_workSheet.Cells[49, 2] = "9";
+                        m_workSheet.Cells[50, 2] = "10";
+                        m_workSheet.Cells[51, 2] = "11";
+                        m_workSheet.Cells[52, 2] = "12";
+                        m_workSheet.Cells[53, 2] = "13";
+                        m_workSheet.Cells[54, 2] = "14";
+                        m_workSheet.Cells[55, 2] = "15";
+                        m_workSheet.Cells[56, 2] = "16";
+                        m_workSheet.Cells[57, 2] = "17";
+                        m_workSheet.Cells[58, 2] = "18";
+                        m_workSheet.Cells[59, 2] = "19";
+                        m_workSheet.Cells[60, 2] = "20";
+                        m_workSheet.Cells[61, 2] = "21";
+                        m_workSheet.Cells[62, 2] = "22";
+                        m_workSheet.Cells[63, 2] = "23";
+                        m_workSheet.Cells[64, 2] = "24";
+                        m_workSheet.Cells[65, 2] = "25";
+                        m_workSheet.Cells[66, 2] = "26";
+                        m_workSheet.Cells[67, 2] = "27";
+                        m_workSheet.Cells[68, 2] = "28";
+                        m_workSheet.Cells[69, 2] = "29";
+                        m_workSheet.Cells[70, 2] = "30";
+                        m_workSheet.Cells[71, 2] = "31";
+
+                        m_workSheet.get_Range("C41", "Z71").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                        m_workSheet.get_Range("C41", "Z71").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+
+                        fl1 = 0;
+                        date_sql = "";
+                        act = new decimal[48];
+                        date1_w2 = date1_w;
+
+                        for (int k = 0; k <= (interval_w.Days - 1); k++)
+                        {
+
+                            for (int j = 1; j <= 48; j++)
+                            {
+                                date1_w2 = date1_w2.AddMinutes(30);
+
+                                date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
+                                result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro56 where electro56_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
+                                fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro56_active"].ToString());
+                                act[j - 1] = fl1;
+
+                            }
+                          
+                            for (int j = 1; j <= 48; j++)
+                            {
+                                
+                                m_workSheet.Cells[41 + k, 3 + (j-1)/2] = (act[j - 1] + act[j]) / 2;
+                                j++;
+                            }
+
+                        }
+
+                        m_workSheet.get_Range("Y72").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("Y72").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("Y72").Font.Bold = true;
+                        m_workSheet.Cells[72, 25] = "ИТОГО";
+
+                        m_workSheet.get_Range("Z72").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                        m_workSheet.get_Range("Z72").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("Z72").Font.Bold = true;
+                        m_workSheet.Cells[72, 26] = "=SUM(C41:Z71)*B40";
+
+                        m_workSheet.get_Range("B41", "Z71").BorderAround();
+                        m_workSheet.get_Range("B41", "Z71").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        m_workSheet.get_Range("B41", "Z71").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                        m_workSheet.get_Range("Y72", "Z72").BorderAround();
+                        m_workSheet.get_Range("Y72", "Z72").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        //m_workSheet.get_Range("Y72", "Z72").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                        //------
+
+                        m_workSheet.get_Range("A73").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("A73").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("A73").Font.Bold = false;
+                        m_workSheet.Cells[73, 1] = "Счетчик №";
+
+                        m_workSheet.get_Range("B73").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                        m_workSheet.get_Range("B73").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("B73").Font.Bold = true;
+                        m_workSheet.Cells[73, 2] = "4479066";
+
+                        m_workSheet.get_Range("A74").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("A74").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("A74").Font.Bold = false;
+                        m_workSheet.Cells[74, 1] = "Тр.тока (коэф)";
+
+                        m_workSheet.get_Range("B74").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                        m_workSheet.get_Range("B74").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("B74").Font.Bold = true;
+                        m_workSheet.Cells[74, 2] = "20";
+
+
+
+                        m_workSheet.get_Range("B75", "B105").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        m_workSheet.get_Range("B75", "B105").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+                        m_workSheet.Cells[75, 2] = "1";
+                        m_workSheet.Cells[76, 2] = "2";
+                        m_workSheet.Cells[77, 2] = "3";
+                        m_workSheet.Cells[78, 2] = "4";
+                        m_workSheet.Cells[79, 2] = "5";
+                        m_workSheet.Cells[80, 2] = "6";
+                        m_workSheet.Cells[81, 2] = "7";
+                        m_workSheet.Cells[82, 2] = "8";
+                        m_workSheet.Cells[83, 2] = "9";
+                        m_workSheet.Cells[84, 2] = "10";
+                        m_workSheet.Cells[85, 2] = "11";
+                        m_workSheet.Cells[86, 2] = "12";
+                        m_workSheet.Cells[87, 2] = "13";
+                        m_workSheet.Cells[88, 2] = "14";
+                        m_workSheet.Cells[89, 2] = "15";
+                        m_workSheet.Cells[90, 2] = "16";
+                        m_workSheet.Cells[91, 2] = "17";
+                        m_workSheet.Cells[92, 2] = "18";
+                        m_workSheet.Cells[93, 2] = "19";
+                        m_workSheet.Cells[94, 2] = "20";
+                        m_workSheet.Cells[95, 2] = "21";
+                        m_workSheet.Cells[96, 2] = "22";
+                        m_workSheet.Cells[97, 2] = "23";
+                        m_workSheet.Cells[98, 2] = "24";
+                        m_workSheet.Cells[99, 2] = "25";
+                        m_workSheet.Cells[100, 2] = "26";
+                        m_workSheet.Cells[101, 2] = "27";
+                        m_workSheet.Cells[102, 2] = "28";
+                        m_workSheet.Cells[103, 2] = "29";
+                        m_workSheet.Cells[104, 2] = "30";
+                        m_workSheet.Cells[105, 2] = "31";
+
+                        m_workSheet.get_Range("C75", "Z105").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                        m_workSheet.get_Range("C75", "Z105").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+
+                        fl1 = 0;
+                        date_sql = "";
+                        act = new decimal[48];
+                        date1_w2 = date1_w;
+
+                        for (int k = 0; k <= (interval_w.Days - 1); k++)
+                        {
+
+                            for (int j = 1; j <= 48; j++)
+                            {
+                                date1_w2 = date1_w2.AddMinutes(30);
+
+                                date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
+                                result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro42 where electro42_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
+                                try
+                                {
+                                    fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro42_active"].ToString());
+                                }
+                                catch (Exception ex)
+                                {
+                                    fl1 = 0;
+                                }
+                                finally
+                                {
+                                    
+                                }
+                                
+                                act[j - 1] = fl1;
+
+                            }
+
+                            for (int j = 1; j <= 48; j++)
+                            {
+
+                                m_workSheet.Cells[75 + k, 3 + (j - 1) / 2] = (act[j - 1] + act[j]) / 2;
+                                j++;
+                            }
+
+                        }
+
+                        m_workSheet.get_Range("Y106").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                        m_workSheet.get_Range("Y106").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("Y106").Font.Bold = true;
+                        m_workSheet.Cells[106, 25] = "ИТОГО";
+
+                        m_workSheet.get_Range("Z106").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                        m_workSheet.get_Range("Z106").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                        m_workSheet.get_Range("Z106").Font.Bold = true;
+                        m_workSheet.Cells[106, 26] = "=SUM(C41:Z71)*B40";
+
+                        m_workSheet.get_Range("B75", "Z105").BorderAround();
+                        m_workSheet.get_Range("B75", "Z105").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                        m_workSheet.get_Range("B75", "Z105").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                        m_workSheet.get_Range("Y106", "Z106").BorderAround();
+                        m_workSheet.get_Range("Y106", "Z106").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                       // m_workSheet.get_Range("Y106", "Z106").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
                         
                         
 
