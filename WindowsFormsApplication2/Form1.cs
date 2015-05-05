@@ -23,6 +23,101 @@ namespace WindowsFormsApplication2
             InitializeComponent();
         }
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        //                           Запрос CRC кода к выданным байтам                                      //
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+        public static byte[] GetCRC(byte[] btMass)                                                          // 
+        {                                                                                                   // 
+            byte[] newBtMass;                                                                               //
+            newBtMass = new byte[btMass.Length + 2];                                                        // 
+            //
+            for (int i = 0; i < btMass.Length; i++)                                                         // 
+            {                                                                                               //
+                newBtMass[i] = btMass[i];                                                                   //
+            }                                                                                               //
+            //                      
+            //
+            int Registr = 0xFFFF;                                                                           //
+            for (int i = 0; i < btMass.Length; i++)                                                         //
+            {                                                                                               //
+                Registr = (Registr ^ btMass[i]);                                                            //
+                //
+                for (int j = 0; j < 8; j++)                                                                 //
+                {                                                                                           //
+                    if ((Registr & 0x1) == 1)                                                               //
+                    {                                                                                       //
+                        Registr = Registr >> 1;                                                             //
+                        Registr = (Registr ^ 0xA001);                                                       //
+                    }                                                                                       //
+                    //
+                    else                                                                                    //
+                    {                                                                                       //
+                        Registr = Registr >> 1;                                                             //
+                    }                                                                                       //
+                }                                                                                           //
+            }                                                                                               //
+            byte lCRC = (byte)(Registr & 0xff);                                                             //
+            byte hCRC = (byte)(Registr >> 8);                                                               //
+            newBtMass[newBtMass.Length - 1] = hCRC;                                                         //    
+            newBtMass[newBtMass.Length - 2] = lCRC;                                                         //    
+            return newBtMass;                                                                               //
+        }                                                                                                   //
+        //////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+        public class Crc16
+        {
+            private static ushort[] CrcTable = {
+            0X0000, 0XC0C1, 0XC181, 0X0140, 0XC301, 0X03C0, 0X0280, 0XC241,
+            0XC601, 0X06C0, 0X0780, 0XC741, 0X0500, 0XC5C1, 0XC481, 0X0440,
+            0XCC01, 0X0CC0, 0X0D80, 0XCD41, 0X0F00, 0XCFC1, 0XCE81, 0X0E40,
+            0X0A00, 0XCAC1, 0XCB81, 0X0B40, 0XC901, 0X09C0, 0X0880, 0XC841,
+            0XD801, 0X18C0, 0X1980, 0XD941, 0X1B00, 0XDBC1, 0XDA81, 0X1A40,
+            0X1E00, 0XDEC1, 0XDF81, 0X1F40, 0XDD01, 0X1DC0, 0X1C80, 0XDC41,
+            0X1400, 0XD4C1, 0XD581, 0X1540, 0XD701, 0X17C0, 0X1680, 0XD641,
+            0XD201, 0X12C0, 0X1380, 0XD341, 0X1100, 0XD1C1, 0XD081, 0X1040,
+            0XF001, 0X30C0, 0X3180, 0XF141, 0X3300, 0XF3C1, 0XF281, 0X3240,
+            0X3600, 0XF6C1, 0XF781, 0X3740, 0XF501, 0X35C0, 0X3480, 0XF441,
+            0X3C00, 0XFCC1, 0XFD81, 0X3D40, 0XFF01, 0X3FC0, 0X3E80, 0XFE41,
+            0XFA01, 0X3AC0, 0X3B80, 0XFB41, 0X3900, 0XF9C1, 0XF881, 0X3840,
+            0X2800, 0XE8C1, 0XE981, 0X2940, 0XEB01, 0X2BC0, 0X2A80, 0XEA41,
+            0XEE01, 0X2EC0, 0X2F80, 0XEF41, 0X2D00, 0XEDC1, 0XEC81, 0X2C40,
+            0XE401, 0X24C0, 0X2580, 0XE541, 0X2700, 0XE7C1, 0XE681, 0X2640,
+            0X2200, 0XE2C1, 0XE381, 0X2340, 0XE101, 0X21C0, 0X2080, 0XE041,
+            0XA001, 0X60C0, 0X6180, 0XA141, 0X6300, 0XA3C1, 0XA281, 0X6240,
+            0X6600, 0XA6C1, 0XA781, 0X6740, 0XA501, 0X65C0, 0X6480, 0XA441,
+            0X6C00, 0XACC1, 0XAD81, 0X6D40, 0XAF01, 0X6FC0, 0X6E80, 0XAE41,
+            0XAA01, 0X6AC0, 0X6B80, 0XAB41, 0X6900, 0XA9C1, 0XA881, 0X6840,
+            0X7800, 0XB8C1, 0XB981, 0X7940, 0XBB01, 0X7BC0, 0X7A80, 0XBA41,
+            0XBE01, 0X7EC0, 0X7F80, 0XBF41, 0X7D00, 0XBDC1, 0XBC81, 0X7C40,
+            0XB401, 0X74C0, 0X7580, 0XB541, 0X7700, 0XB7C1, 0XB681, 0X7640,
+            0X7200, 0XB2C1, 0XB381, 0X7340, 0XB101, 0X71C0, 0X7080, 0XB041,
+            0X5000, 0X90C1, 0X9181, 0X5140, 0X9301, 0X53C0, 0X5280, 0X9241,
+            0X9601, 0X56C0, 0X5780, 0X9741, 0X5500, 0X95C1, 0X9481, 0X5440,
+            0X9C01, 0X5CC0, 0X5D80, 0X9D41, 0X5F00, 0X9FC1, 0X9E81, 0X5E40,
+            0X5A00, 0X9AC1, 0X9B81, 0X5B40, 0X9901, 0X59C0, 0X5880, 0X9841,
+            0X8801, 0X48C0, 0X4980, 0X8941, 0X4B00, 0X8BC1, 0X8A81, 0X4A40,
+            0X4E00, 0X8EC1, 0X8F81, 0X4F40, 0X8D01, 0X4DC0, 0X4C80, 0X8C41,
+            0X4400, 0X84C1, 0X8581, 0X4540, 0X8701, 0X47C0, 0X4680, 0X8641,
+            0X8201, 0X42C0, 0X4380, 0X8341, 0X4100, 0X81C1, 0X8081, 0X4040 };
+
+            public static UInt16 ComputeCrc(byte[] data)
+            {
+                ushort crc = 0xFFFF;
+
+                foreach (byte datum in data)
+                {
+                    crc = (ushort)((crc >> 8) ^ CrcTable[(crc ^ datum) & 0xFF]);
+                }
+
+                return crc;
+            }
+        }
+
 
 
 
@@ -4869,6 +4964,10 @@ namespace WindowsFormsApplication2
             DateTime date2_w = new DateTime(2014, 1, 1);
             string month_str = "";
 
+            byte[] begin55 = { };
+
+
+
             string conn_str = "Database=resources;Data Source=10.1.1.50;User Id=sa;Password=Rfnfgekmrf48";
 
             MySqlLib.MySqlData.MySqlExecuteData.MyResultData result = new MySqlLib.MySqlData.MySqlExecuteData.MyResultData();
@@ -4920,599 +5019,1091 @@ namespace WindowsFormsApplication2
                 m_workSheet.get_Range("A2").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
                 m_workSheet.get_Range("A2").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("A2").Font.Bold = true;
-
-                if (date1_w.Month == 1) { month_str = "Январь"; };
-                if (date1_w.Month == 2) { month_str = "Февраль"; };
-                if (date1_w.Month == 3) { month_str = "Март"; };
-                if (date1_w.Month == 4) { month_str = "Апрель"; };
-                if (date1_w.Month == 5) { month_str = "Май"; };
-                if (date1_w.Month == 6) { month_str = "Июнь"; };
-                if (date1_w.Month == 7) { month_str = "Июль"; };
-                if (date1_w.Month == 8) { month_str = "Август"; };
-                if (date1_w.Month == 9) { month_str = "Сентябрь"; };
-                if (date1_w.Month == 10) { month_str = "Октябрь"; };
-                if (date1_w.Month == 11) { month_str = "Ноябрь"; };
-                if (date1_w.Month == 12) { month_str = "Декабрь"; };
-
-                m_workSheet.Cells[2, 1] = "Отчет за потребленную электроэнергию и мощность, " + month_str + " " + date1_w.Year + " г.";
-
-
-                m_workSheet.get_Range("A3").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("A3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("A3").Font.Bold = false;
-                m_workSheet.Cells[3, 1] = "Счетчик №";
-
-                m_workSheet.get_Range("B3").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("B3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("B3").Font.Bold = true;
-                m_workSheet.Cells[3, 2] = "335385";
-
-                m_workSheet.get_Range("A4").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("A4").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("A4").Font.Bold = false;
-                m_workSheet.Cells[4, 1] = "Тр.тока (коэф)";
-
-                m_workSheet.get_Range("B4").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("B4").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("B4").Font.Bold = true;
-                m_workSheet.Cells[4, 2] = "120";
-
-
-                m_workSheet.get_Range("B6").RowHeight = 30;
-                m_workSheet.get_Range("B5", "B6").Merge(System.Type.Missing);
-                m_workSheet.get_Range("B5").WrapText = true;
-                m_workSheet.get_Range("B5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("B5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[5, 2] = "Число расчетного месяца";
-
-
-
-                m_workSheet.get_Range("C5", "Z5").Merge(System.Type.Missing);
-                m_workSheet.get_Range("C5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("C5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[5, 3] = "Время суток";
-
-                m_workSheet.get_Range("C6", "Z6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("C6", "Z6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                m_workSheet.Cells[6, 3] = "0.00-1.00";
-                m_workSheet.Cells[6, 4] = "1.00-2.00";
-                m_workSheet.Cells[6, 5] = "2.00-3.00";
-                m_workSheet.Cells[6, 6] = "3.00-4.00";
-                m_workSheet.Cells[6, 7] = "4.00-5.00";
-                m_workSheet.Cells[6, 8] = "5.00-6.00";
-                m_workSheet.Cells[6, 9] = "6.00-7.00";
-                m_workSheet.Cells[6, 10] = "7.00-8.00";
-                m_workSheet.Cells[6, 11] = "8.00-9.00";
-                m_workSheet.Cells[6, 12] = "9.00-10.00";
-                m_workSheet.Cells[6, 13] = "10.00-11.00";
-                m_workSheet.Cells[6, 14] = "11.00-12.00";
-                m_workSheet.Cells[6, 15] = "12.00-13.00";
-                m_workSheet.Cells[6, 16] = "13.00-14.00";
-                m_workSheet.Cells[6, 17] = "14.00-15.00";
-                m_workSheet.Cells[6, 18] = "15.00-16.00";
-                m_workSheet.Cells[6, 19] = "16.00-17.00";
-                m_workSheet.Cells[6, 20] = "17.00-18.00";
-                m_workSheet.Cells[6, 21] = "18.00-19.00";
-                m_workSheet.Cells[6, 22] = "19.00-20.00";
-                m_workSheet.Cells[6, 23] = "20.00-21.00";
-                m_workSheet.Cells[6, 24] = "21.00-22.00";
-                m_workSheet.Cells[6, 25] = "22.00-23.00";
-                m_workSheet.Cells[6, 26] = "23.00-24.00";
-
-                m_workSheet.get_Range("B7", "B37").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("B7", "B37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                m_workSheet.Cells[7, 2] = "1";
-                m_workSheet.Cells[8, 2] = "2";
-                m_workSheet.Cells[9, 2] = "3";
-                m_workSheet.Cells[10, 2] = "4";
-                m_workSheet.Cells[11, 2] = "5";
-                m_workSheet.Cells[12, 2] = "6";
-                m_workSheet.Cells[13, 2] = "7";
-                m_workSheet.Cells[14, 2] = "8";
-                m_workSheet.Cells[15, 2] = "9";
-                m_workSheet.Cells[16, 2] = "10";
-                m_workSheet.Cells[17, 2] = "11";
-                m_workSheet.Cells[18, 2] = "12";
-                m_workSheet.Cells[19, 2] = "13";
-                m_workSheet.Cells[20, 2] = "14";
-                m_workSheet.Cells[21, 2] = "15";
-                m_workSheet.Cells[22, 2] = "16";
-                m_workSheet.Cells[23, 2] = "17";
-                m_workSheet.Cells[24, 2] = "18";
-                m_workSheet.Cells[25, 2] = "19";
-                m_workSheet.Cells[26, 2] = "20";
-                m_workSheet.Cells[27, 2] = "21";
-                m_workSheet.Cells[28, 2] = "22";
-                m_workSheet.Cells[29, 2] = "23";
-                m_workSheet.Cells[30, 2] = "24";
-                m_workSheet.Cells[31, 2] = "25";
-                m_workSheet.Cells[32, 2] = "26";
-                m_workSheet.Cells[33, 2] = "27";
-                m_workSheet.Cells[34, 2] = "28";
-                m_workSheet.Cells[35, 2] = "29";
-                m_workSheet.Cells[36, 2] = "30";
-                m_workSheet.Cells[37, 2] = "31";
-
-                m_workSheet.get_Range("C7", "Z37").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("C7", "Z37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                TimeSpan interval_w = date2_w - date1_w;
-                decimal fl1 = 0;
-                string date_sql = "";
-                decimal[] act = new decimal[48];
-
-                DateTime date1_w2 = date1_w;
-
-                for (int k = 0; k <= (interval_w.Days - 1); k++)
-                {
-
-                    for (int j = 1; j <= 48; j++)
-                    {
-                        date1_w2 = date1_w2.AddMinutes(30);
-
-                        date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
-                        result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro55 where electro55_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
-
-                        try
-                        {
-                            fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro55_active"].ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            fl1 = 0;
-                        }
-                        finally
-                        {
-
-                        }
-
-                        act[j - 1] = fl1;
-
-                    }
-
-                    for (int j = 1; j <= 48; j++)
-                    {
-
-                        m_workSheet.Cells[7 + k, 3 + (j - 1) / 2] = (act[j - 1] + act[j]) / 2;
-                        j++;
-                    }
-
-                }
-
-                m_workSheet.get_Range("Y38").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("Y38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("Y38").Font.Bold = true;
-                m_workSheet.Cells[38, 25] = "ИТОГО";
-
-                m_workSheet.get_Range("Z38").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("Z38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("Z38").Font.Bold = true;
-                m_workSheet.Cells[38, 26] = "=SUM(C7:Z37)*B4";
-
-                m_workSheet.get_Range("B5", "Z37").BorderAround();
-                m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
-                m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                m_workSheet.get_Range("Y38", "Z38").BorderAround();
-                m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
-                // m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                //------
-
-                m_workSheet.get_Range("A39").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("A39").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("A39").Font.Bold = false;
-                m_workSheet.Cells[39, 1] = "Счетчик №";
-
-                m_workSheet.get_Range("B39").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("B39").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("B39").Font.Bold = true;
-                m_workSheet.Cells[39, 2] = "1753886";
-
-                m_workSheet.get_Range("A40").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("A40").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("A40").Font.Bold = false;
-                m_workSheet.Cells[40, 1] = "Тр.тока (коэф)";
-
-                m_workSheet.get_Range("B40").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("B40").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("B40").Font.Bold = true;
-                m_workSheet.Cells[40, 2] = "120";
-
-
-
-                m_workSheet.get_Range("B41", "B71").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("B41", "B71").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                m_workSheet.Cells[41, 2] = "1";
-                m_workSheet.Cells[42, 2] = "2";
-                m_workSheet.Cells[43, 2] = "3";
-                m_workSheet.Cells[44, 2] = "4";
-                m_workSheet.Cells[45, 2] = "5";
-                m_workSheet.Cells[46, 2] = "6";
-                m_workSheet.Cells[47, 2] = "7";
-                m_workSheet.Cells[48, 2] = "8";
-                m_workSheet.Cells[49, 2] = "9";
-                m_workSheet.Cells[50, 2] = "10";
-                m_workSheet.Cells[51, 2] = "11";
-                m_workSheet.Cells[52, 2] = "12";
-                m_workSheet.Cells[53, 2] = "13";
-                m_workSheet.Cells[54, 2] = "14";
-                m_workSheet.Cells[55, 2] = "15";
-                m_workSheet.Cells[56, 2] = "16";
-                m_workSheet.Cells[57, 2] = "17";
-                m_workSheet.Cells[58, 2] = "18";
-                m_workSheet.Cells[59, 2] = "19";
-                m_workSheet.Cells[60, 2] = "20";
-                m_workSheet.Cells[61, 2] = "21";
-                m_workSheet.Cells[62, 2] = "22";
-                m_workSheet.Cells[63, 2] = "23";
-                m_workSheet.Cells[64, 2] = "24";
-                m_workSheet.Cells[65, 2] = "25";
-                m_workSheet.Cells[66, 2] = "26";
-                m_workSheet.Cells[67, 2] = "27";
-                m_workSheet.Cells[68, 2] = "28";
-                m_workSheet.Cells[69, 2] = "29";
-                m_workSheet.Cells[70, 2] = "30";
-                m_workSheet.Cells[71, 2] = "31";
-
-                m_workSheet.get_Range("C41", "Z71").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("C41", "Z71").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-
-                fl1 = 0;
-                date_sql = "";
-                act = new decimal[48];
-                date1_w2 = date1_w;
-
-                for (int k = 0; k <= (interval_w.Days - 1); k++)
-                {
-
-                    for (int j = 1; j <= 48; j++)
-                    {
-                        date1_w2 = date1_w2.AddMinutes(30);
-
-                        date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
-                        result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro56 where electro56_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
-
-                        try
-                        {
-                            fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro56_active"].ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            fl1 = 0;
-                        }
-                        finally
-                        {
-
-                        }
-
-                        act[j - 1] = fl1;
-
-                    }
-
-                    for (int j = 1; j <= 48; j++)
-                    {
-
-                        m_workSheet.Cells[41 + k, 3 + (j - 1) / 2] = (act[j - 1] + act[j]) / 2;
-                        j++;
-                    }
-
-                }
-
-                m_workSheet.get_Range("Y72").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("Y72").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("Y72").Font.Bold = true;
-                m_workSheet.Cells[72, 25] = "ИТОГО";
-
-                m_workSheet.get_Range("Z72").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("Z72").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("Z72").Font.Bold = true;
-                m_workSheet.Cells[72, 26] = "=SUM(C41:Z71)*B40";
-
-                m_workSheet.get_Range("B41", "Z71").BorderAround();
-                m_workSheet.get_Range("B41", "Z71").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
-                m_workSheet.get_Range("B41", "Z71").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                m_workSheet.get_Range("Y72", "Z72").BorderAround();
-                m_workSheet.get_Range("Y72", "Z72").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
-                //m_workSheet.get_Range("Y72", "Z72").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                //------
-
-                m_workSheet.get_Range("A73").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("A73").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("A73").Font.Bold = false;
-                m_workSheet.Cells[73, 1] = "Счетчик №";
-
-                m_workSheet.get_Range("B73").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("B73").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("B73").Font.Bold = true;
-                m_workSheet.Cells[73, 2] = "4479066";
-
-                m_workSheet.get_Range("A74").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("A74").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("A74").Font.Bold = false;
-                m_workSheet.Cells[74, 1] = "Тр.тока (коэф)";
-
-                m_workSheet.get_Range("B74").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("B74").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("B74").Font.Bold = true;
-                m_workSheet.Cells[74, 2] = "20";
-
-
-
-                m_workSheet.get_Range("B75", "B105").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("B75", "B105").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                m_workSheet.Cells[75, 2] = "1";
-                m_workSheet.Cells[76, 2] = "2";
-                m_workSheet.Cells[77, 2] = "3";
-                m_workSheet.Cells[78, 2] = "4";
-                m_workSheet.Cells[79, 2] = "5";
-                m_workSheet.Cells[80, 2] = "6";
-                m_workSheet.Cells[81, 2] = "7";
-                m_workSheet.Cells[82, 2] = "8";
-                m_workSheet.Cells[83, 2] = "9";
-                m_workSheet.Cells[84, 2] = "10";
-                m_workSheet.Cells[85, 2] = "11";
-                m_workSheet.Cells[86, 2] = "12";
-                m_workSheet.Cells[87, 2] = "13";
-                m_workSheet.Cells[88, 2] = "14";
-                m_workSheet.Cells[89, 2] = "15";
-                m_workSheet.Cells[90, 2] = "16";
-                m_workSheet.Cells[91, 2] = "17";
-                m_workSheet.Cells[92, 2] = "18";
-                m_workSheet.Cells[93, 2] = "19";
-                m_workSheet.Cells[94, 2] = "20";
-                m_workSheet.Cells[95, 2] = "21";
-                m_workSheet.Cells[96, 2] = "22";
-                m_workSheet.Cells[97, 2] = "23";
-                m_workSheet.Cells[98, 2] = "24";
-                m_workSheet.Cells[99, 2] = "25";
-                m_workSheet.Cells[100, 2] = "26";
-                m_workSheet.Cells[101, 2] = "27";
-                m_workSheet.Cells[102, 2] = "28";
-                m_workSheet.Cells[103, 2] = "29";
-                m_workSheet.Cells[104, 2] = "30";
-                m_workSheet.Cells[105, 2] = "31";
-
-                m_workSheet.get_Range("C75", "Z105").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("C75", "Z105").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-
-                fl1 = 0;
-                date_sql = "";
-                act = new decimal[48];
-                date1_w2 = date1_w;
-
-                for (int k = 0; k <= (interval_w.Days - 1); k++)
-                {
-
-                    for (int j = 1; j <= 48; j++)
-                    {
-                        date1_w2 = date1_w2.AddMinutes(30);
-
-                        date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
-                        result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro42 where electro42_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
-                        try
-                        {
-                            fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro42_active"].ToString());
-                        }
-                        catch (Exception ex)
-                        {
-                            fl1 = 0;
-                        }
-                        finally
-                        {
-
-                        }
-
-                        act[j - 1] = fl1;
-
-                    }
-
-                    for (int j = 1; j <= 48; j++)
-                    {
-
-                        m_workSheet.Cells[75 + k, 3 + (j - 1) / 2] = (act[j - 1] + act[j]) / 2;
-                        j++;
-                    }
-
-                }
-
-                m_workSheet.get_Range("Y106").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("Y106").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("Y106").Font.Bold = true;
-                m_workSheet.Cells[106, 25] = "ИТОГО";
-
-                m_workSheet.get_Range("Z106").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("Z106").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("Z106").Font.Bold = true;
-                m_workSheet.Cells[106, 26] = "=SUM(C75:Z105)*B74";
-
-                m_workSheet.get_Range("B75", "Z105").BorderAround();
-                m_workSheet.get_Range("B75", "Z105").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
-                m_workSheet.get_Range("B75", "Z105").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                m_workSheet.get_Range("Y106", "Z106").BorderAround();
-                m_workSheet.get_Range("Y106", "Z106").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
-                // m_workSheet.get_Range("Y106", "Z106").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
-
-
-                m_workSheet.get_Range("B109").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("B109").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[109, 2] = "Главный энергетик ____________ Носов В.В.";
-
-
-
-                m_workBook.Sheets[2].Select();
-                m_workSheet = m_app.ActiveSheet as Excel.Worksheet;
-                m_workSheet.Name = "Summa";
-
-                m_workSheet.Columns.ColumnWidth = 11.29;
-
-                // m_workSheet.Cells.NumberFormat = "@";
-                m_workSheet.Cells.NumberFormat = "General";
-
-                m_workSheet.get_Range("A1").ColumnWidth = 2.29;
-
-                m_workSheet.get_Range("A1", "Z1").Merge(System.Type.Missing);
-                m_workSheet.get_Range("A1").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("A1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[1, 1] = "Сведения";
-
-                m_workSheet.get_Range("G2", "T2").Merge(System.Type.Missing);
-                m_workSheet.get_Range("G2").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("G2").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[2, 7] = "о фактическом почасовом расходе электрической энергии за " + month_str + " " + date1_w.Year + " года ОАО \"Аньковское\"";
-
-                m_workSheet.get_Range("B3", "D3").Merge(System.Type.Missing);
-                m_workSheet.get_Range("B3").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("B3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[3, 2] = "Договор №29";
-
-                m_workSheet.get_Range("X3", "Z3").Merge(System.Type.Missing);
-                m_workSheet.get_Range("X3").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("X3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[3, 24] = "Уровень СН2";
-
-
-                m_workSheet.get_Range("B6").RowHeight = 30;
-                m_workSheet.get_Range("B5", "B6").Merge(System.Type.Missing);
-                m_workSheet.get_Range("B5").WrapText = true;
-                m_workSheet.get_Range("B5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("B5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[5, 2] = "Число расчетного месяца";
                 
-                m_workSheet.get_Range("C5", "Z5").Merge(System.Type.Missing);
-                m_workSheet.get_Range("C5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("C5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[5, 3] = "Время суток";
+                if (date1_w.Month == 1) 
+                { 
+                    month_str = "Январь";
 
-                m_workSheet.get_Range("C6", "Z6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("C6", "Z6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x02, 0xAA, 0x10, 0x5B, 0x0A };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x02, 0xAA, 0x10, 0x5B, 0x39 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x02, 0xAA, 0x10, 0x58, 0x2D };
 
-                m_workSheet.Cells[6, 3] = "0.00-1.00";
-                m_workSheet.Cells[6, 4] = "1.00-2.00";
-                m_workSheet.Cells[6, 5] = "2.00-3.00";
-                m_workSheet.Cells[6, 6] = "3.00-4.00";
-                m_workSheet.Cells[6, 7] = "4.00-5.00";
-                m_workSheet.Cells[6, 8] = "5.00-6.00";
-                m_workSheet.Cells[6, 9] = "6.00-7.00";
-                m_workSheet.Cells[6, 10] = "7.00-8.00";
-                m_workSheet.Cells[6, 11] = "8.00-9.00";
-                m_workSheet.Cells[6, 12] = "9.00-10.00";
-                m_workSheet.Cells[6, 13] = "10.00-11.00";
-                m_workSheet.Cells[6, 14] = "11.00-12.00";
-                m_workSheet.Cells[6, 15] = "12.00-13.00";
-                m_workSheet.Cells[6, 16] = "13.00-14.00";
-                m_workSheet.Cells[6, 17] = "14.00-15.00";
-                m_workSheet.Cells[6, 18] = "15.00-16.00";
-                m_workSheet.Cells[6, 19] = "16.00-17.00";
-                m_workSheet.Cells[6, 20] = "17.00-18.00";
-                m_workSheet.Cells[6, 21] = "18.00-19.00";
-                m_workSheet.Cells[6, 22] = "19.00-20.00";
-                m_workSheet.Cells[6, 23] = "20.00-21.00";
-                m_workSheet.Cells[6, 24] = "21.00-22.00";
-                m_workSheet.Cells[6, 25] = "22.00-23.00";
-                m_workSheet.Cells[6, 26] = "23.00-24.00";
+                    byte[] req_month55 = { 0x55, 0x05, 0x31, 0x00, 0x14, 0x79 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x31, 0x00, 0x14, 0x3D };
+                    byte[] req_month42 = { 0x42, 0x05, 0x31, 0x00, 0x11, 0xCD };
 
-                m_workSheet.get_Range("B7", "B37").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("B7", "B37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                };
 
-                m_workSheet.Cells[7, 2] = "1";
-                m_workSheet.Cells[8, 2] = "2";
-                m_workSheet.Cells[9, 2] = "3";
-                m_workSheet.Cells[10, 2] = "4";
-                m_workSheet.Cells[11, 2] = "5";
-                m_workSheet.Cells[12, 2] = "6";
-                m_workSheet.Cells[13, 2] = "7";
-                m_workSheet.Cells[14, 2] = "8";
-                m_workSheet.Cells[15, 2] = "9";
-                m_workSheet.Cells[16, 2] = "10";
-                m_workSheet.Cells[17, 2] = "11";
-                m_workSheet.Cells[18, 2] = "12";
-                m_workSheet.Cells[19, 2] = "13";
-                m_workSheet.Cells[20, 2] = "14";
-                m_workSheet.Cells[21, 2] = "15";
-                m_workSheet.Cells[22, 2] = "16";
-                m_workSheet.Cells[23, 2] = "17";
-                m_workSheet.Cells[24, 2] = "18";
-                m_workSheet.Cells[25, 2] = "19";
-                m_workSheet.Cells[26, 2] = "20";
-                m_workSheet.Cells[27, 2] = "21";
-                m_workSheet.Cells[28, 2] = "22";
-                m_workSheet.Cells[29, 2] = "23";
-                m_workSheet.Cells[30, 2] = "24";
-                m_workSheet.Cells[31, 2] = "25";
-                m_workSheet.Cells[32, 2] = "26";
-                m_workSheet.Cells[33, 2] = "27";
-                m_workSheet.Cells[34, 2] = "28";
-                m_workSheet.Cells[35, 2] = "29";
-                m_workSheet.Cells[36, 2] = "30";
-                m_workSheet.Cells[37, 2] = "31";
+                if (date1_w.Month == 2)
+                { 
+                    month_str = "Февраль";
 
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x02, 0xFF, 0x10, 0xC9, 0x78 };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x02, 0xFF, 0x10, 0x8D, 0x78 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x02, 0xFF, 0x10, 0xBD, 0x7B };
 
-                for (int j = 0; j <= 30; j++)
+                    byte[] req_month55 = { 0x55, 0x05, 0x32, 0x00, 0x14, 0x89 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x32, 0x00, 0x14, 0xCD };
+                    byte[] req_month42 = { 0x42, 0x05, 0x32, 0x00, 0x11, 0x3D };
+
+                };
+                
+                if (date1_w.Month == 3) 
                 {
-                    m_workSheet.Cells[7+j, 3]  = "=Worksheet!C" + Convert.ToString(7 + j) + "*120+Worksheet!C" + Convert.ToString(41 + j) + "*120+Worksheet!C" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 4]  = "=Worksheet!D" + Convert.ToString(7 + j) + "*120+Worksheet!D" + Convert.ToString(41 + j) + "*120+Worksheet!D" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 5]  = "=Worksheet!E" + Convert.ToString(7 + j) + "*120+Worksheet!E" + Convert.ToString(41 + j) + "*120+Worksheet!E" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 6]  = "=Worksheet!F" + Convert.ToString(7 + j) + "*120+Worksheet!F" + Convert.ToString(41 + j) + "*120+Worksheet!F" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 7]  = "=Worksheet!G" + Convert.ToString(7 + j) + "*120+Worksheet!G" + Convert.ToString(41 + j) + "*120+Worksheet!G" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 8]  = "=Worksheet!H" + Convert.ToString(7 + j) + "*120+Worksheet!H" + Convert.ToString(41 + j) + "*120+Worksheet!H" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 9]  = "=Worksheet!I" + Convert.ToString(7 + j) + "*120+Worksheet!I" + Convert.ToString(41 + j) + "*120+Worksheet!I" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 10] = "=Worksheet!J" + Convert.ToString(7 + j) + "*120+Worksheet!J" + Convert.ToString(41 + j) + "*120+Worksheet!J" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 11] = "=Worksheet!K" + Convert.ToString(7 + j) + "*120+Worksheet!K" + Convert.ToString(41 + j) + "*120+Worksheet!K" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 12] = "=Worksheet!L" + Convert.ToString(7 + j) + "*120+Worksheet!L" + Convert.ToString(41 + j) + "*120+Worksheet!L" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 13] = "=Worksheet!M" + Convert.ToString(7 + j) + "*120+Worksheet!M" + Convert.ToString(41 + j) + "*120+Worksheet!M" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 14] = "=Worksheet!N" + Convert.ToString(7 + j) + "*120+Worksheet!N" + Convert.ToString(41 + j) + "*120+Worksheet!N" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 15] = "=Worksheet!O" + Convert.ToString(7 + j) + "*120+Worksheet!O" + Convert.ToString(41 + j) + "*120+Worksheet!O" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 16] = "=Worksheet!P" + Convert.ToString(7 + j) + "*120+Worksheet!P" + Convert.ToString(41 + j) + "*120+Worksheet!P" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 17] = "=Worksheet!Q" + Convert.ToString(7 + j) + "*120+Worksheet!Q" + Convert.ToString(41 + j) + "*120+Worksheet!Q" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 18] = "=Worksheet!R" + Convert.ToString(7 + j) + "*120+Worksheet!R" + Convert.ToString(41 + j) + "*120+Worksheet!R" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 19] = "=Worksheet!S" + Convert.ToString(7 + j) + "*120+Worksheet!S" + Convert.ToString(41 + j) + "*120+Worksheet!S" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 20] = "=Worksheet!T" + Convert.ToString(7 + j) + "*120+Worksheet!T" + Convert.ToString(41 + j) + "*120+Worksheet!T" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 21] = "=Worksheet!U" + Convert.ToString(7 + j) + "*120+Worksheet!U" + Convert.ToString(41 + j) + "*120+Worksheet!U" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 22] = "=Worksheet!V" + Convert.ToString(7 + j) + "*120+Worksheet!V" + Convert.ToString(41 + j) + "*120+Worksheet!V" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 23] = "=Worksheet!W" + Convert.ToString(7 + j) + "*120+Worksheet!W" + Convert.ToString(41 + j) + "*120+Worksheet!W" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 24] = "=Worksheet!X" + Convert.ToString(7 + j) + "*120+Worksheet!X" + Convert.ToString(41 + j) + "*120+Worksheet!X" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 25] = "=Worksheet!Y" + Convert.ToString(7 + j) + "*120+Worksheet!Y" + Convert.ToString(41 + j) + "*120+Worksheet!Y" + Convert.ToString(75 + j) + "*20";
-                    m_workSheet.Cells[7+j, 26] = "=Worksheet!Z" + Convert.ToString(7 + j) + "*120+Worksheet!Z" + Convert.ToString(41 + j) + "*120+Worksheet!Z" + Convert.ToString(75 + j) + "*20";
+                    month_str = "Март";
 
-                }
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x03, 0x54, 0x10, 0x88, 0x4B };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x03, 0x54, 0x10, 0xCC, 0x4B };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x03, 0x54, 0x10, 0xFC, 0x48 };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x33, 0x00, 0x15, 0x19 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x33, 0x00, 0x15, 0x5D };
+                    byte[] req_month42 = { 0x42, 0x05, 0x33, 0x00, 0x10, 0xAD };
+                };
+                
+                if (date1_w.Month == 4)
+                {
+                    month_str = "Апрель";
+
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x03, 0xFE, 0x10, 0x34, 0x0A };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x03, 0xFE, 0x10, 0x34, 0x39 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x03, 0xFE, 0x10, 0x37, 0x2D };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x34, 0x00, 0x17, 0x29 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x34, 0x00, 0x17, 0x6D };
+                    byte[] req_month42 = { 0x42, 0x05, 0x34, 0x00, 0x12, 0x9D };
+
+                    begin55 = req_begin55;
+
+                };
+
+                if (date1_w.Month == 5)
+                {
+                    month_str = "Май";
+
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x03, 0xFE, 0x10, 0x34, 0x0A };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x03, 0xFE, 0x10, 0x34, 0x39 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x03, 0xFE, 0x10, 0x37, 0x2D };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x35, 0x00, 0x16, 0xB9 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x35, 0x00, 0x16, 0xFD };
+                    byte[] req_month42 = { 0x42, 0x05, 0x35, 0x00, 0x13, 0x0D };
+                    
+                };
+                
+                if (date1_w.Month == 6)
+                {
+                    month_str = "Июнь";
+                    
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x04, 0x53, 0x10, 0xF9, 0x5B };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x04, 0x53, 0x10, 0xF9, 0x68 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x04, 0x53, 0x10, 0xFA, 0x7C };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x36, 0x00, 0x16, 0x49 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x36, 0x00, 0x16, 0x0D };
+                    byte[] req_month42 = { 0x42, 0x05, 0x36, 0x00, 0x13, 0xFD };
+
+                };
+
+                if (date1_w.Month == 7) 
+                {
+                    month_str = "Июль";
+
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x04, 0xA8, 0x10, 0xBA, 0x6B };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x04, 0xA8, 0x10, 0xBA, 0x58 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x04, 0xA8, 0x10, 0xB9, 0x4C };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x37, 0x00, 0x17, 0xD9 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x37, 0x00, 0x17, 0x9D };
+                    byte[] req_month42 = { 0x42, 0x05, 0x37, 0x00, 0x12, 0x6D };
+                
+                };
+
+                if (date1_w.Month == 8) 
+                {
+                    month_str = "Август";
+                    
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x04, 0xFD, 0x10, 0x85, 0x3B };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x04, 0xFD, 0x10, 0x85, 0x08 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x04, 0xFD, 0x10, 0x86, 0x1C };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x38, 0x00, 0x12, 0x29 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x38, 0x00, 0x12, 0x6D };
+                    byte[] req_month42 = { 0x42, 0x05, 0x38, 0x00, 0x17, 0x7D };
+                
+                };
+
+                if (date1_w.Month == 9) 
+                {
+                    month_str = "Сентябрь";
+
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x05, 0x52, 0x10, 0xA9, 0x0B };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x05, 0x52, 0x10, 0xA9, 0x38 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x05, 0x52, 0x10, 0xAA, 0x1C };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x39, 0x00, 0x13, 0xB9 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x39, 0x00, 0x13, 0xFD };
+                    byte[] req_month42 = { 0x42, 0x05, 0x39, 0x00, 0x16, 0x0D };
+                
+                };
+                
+                if (date1_w.Month == 10)
+                {
+                    month_str = "Октябрь";
+
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x05, 0xA7, 0x10, 0xEE, 0x5B };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x05, 0xA7, 0x10, 0xEE, 0x68 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x05, 0xA7, 0x10, 0xED, 0x7C };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x3A, 0x00, 0x13, 0x49 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x3A, 0x00, 0x13, 0x0D };
+                    byte[] req_month42 = { 0x42, 0x05, 0x3A, 0x00, 0x16, 0xFD };
+                
+                };
+
+                if (date1_w.Month == 11) 
+                {
+                    month_str = "Ноябрь";
+
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x05, 0xFC, 0x10, 0xD5, 0x6B };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x05, 0xFC, 0x10, 0xD5, 0x58 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x05, 0xFC, 0x10, 0xD6, 0x4C };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x3B, 0x00, 0x12, 0xD9 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x3B, 0x00, 0x12, 0x9D };
+                    byte[] req_month42 = { 0x42, 0x05, 0x3B, 0x00, 0x17, 0x6D };
+                
+                };
+
+                if (date1_w.Month == 12) 
+                { 
+                    month_str = "Декабрь";
+
+                    byte[] req_begin55 = { 0x55, 0x06, 0x02, 0x06, 0x51, 0x10, 0x59, 0xFB };
+                    byte[] req_begin56 = { 0x56, 0x06, 0x02, 0x06, 0x51, 0x10, 0x59, 0xC8 };
+                    byte[] req_begin42 = { 0x42, 0x06, 0x02, 0x06, 0x51, 0x10, 0x5A, 0xDC };
+
+                    byte[] req_month55 = { 0x55, 0x05, 0x3C, 0x00, 0x10, 0xE9 };
+                    byte[] req_month56 = { 0x56, 0x05, 0x3C, 0x00, 0x10, 0xAD };
+                    byte[] req_month42 = { 0x42, 0x05, 0x3C, 0x00, 0x15, 0x5D };
+                
+                };
+
+                //m_workSheet.Cells[2, 1] = "Отчет за потребленную электроэнергию и мощность, " + month_str + " " + date1_w.Year + " г.";
 
 
-                m_workSheet.get_Range("Y38").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("Y38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("Y38").Font.Bold = true;
-                m_workSheet.Cells[38, 25] = "Сумма";
+                //m_workSheet.get_Range("A3").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("A3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("A3").Font.Bold = false;
+                //m_workSheet.Cells[3, 1] = "Счетчик №";
 
-                m_workSheet.get_Range("Z38").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
-                m_workSheet.get_Range("Z38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.get_Range("Z38").Font.Bold = true;
-                m_workSheet.Cells[38, 26] = "=SUM(C7:Z37)";
+                //m_workSheet.get_Range("B3").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("B3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("B3").Font.Bold = true;
+                //m_workSheet.Cells[3, 2] = "335385";
 
-                m_workSheet.get_Range("B5", "Z37").BorderAround();
-                m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
-                m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //m_workSheet.get_Range("A4").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("A4").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("A4").Font.Bold = false;
+                //m_workSheet.Cells[4, 1] = "Тр.тока (коэф)";
 
-                m_workSheet.get_Range("Y38", "Z38").BorderAround();
-                m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
-                // m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //m_workSheet.get_Range("B4").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("B4").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("B4").Font.Bold = true;
+                //m_workSheet.Cells[4, 2] = "120";
 
-                m_workSheet.get_Range("B41").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("B41").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[41, 2] = "Главный энергетик ____________ Носов В.В.";
 
-                m_workSheet.get_Range("Q41").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
-                m_workSheet.get_Range("Q41").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[41, 17] = "М.П.";
+                //m_workSheet.get_Range("B6").RowHeight = 30;
+                //m_workSheet.get_Range("B5", "B6").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B5").WrapText = true;
+                //m_workSheet.get_Range("B5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 2] = "Число расчетного месяца";
 
+
+
+                //m_workSheet.get_Range("C5", "Z5").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("C5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 3] = "Время суток";
+
+                //m_workSheet.get_Range("C6", "Z6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C6", "Z6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+                //m_workSheet.Cells[6, 3] = "0.00-1.00";
+                //m_workSheet.Cells[6, 4] = "1.00-2.00";
+                //m_workSheet.Cells[6, 5] = "2.00-3.00";
+                //m_workSheet.Cells[6, 6] = "3.00-4.00";
+                //m_workSheet.Cells[6, 7] = "4.00-5.00";
+                //m_workSheet.Cells[6, 8] = "5.00-6.00";
+                //m_workSheet.Cells[6, 9] = "6.00-7.00";
+                //m_workSheet.Cells[6, 10] = "7.00-8.00";
+                //m_workSheet.Cells[6, 11] = "8.00-9.00";
+                //m_workSheet.Cells[6, 12] = "9.00-10.00";
+                //m_workSheet.Cells[6, 13] = "10.00-11.00";
+                //m_workSheet.Cells[6, 14] = "11.00-12.00";
+                //m_workSheet.Cells[6, 15] = "12.00-13.00";
+                //m_workSheet.Cells[6, 16] = "13.00-14.00";
+                //m_workSheet.Cells[6, 17] = "14.00-15.00";
+                //m_workSheet.Cells[6, 18] = "15.00-16.00";
+                //m_workSheet.Cells[6, 19] = "16.00-17.00";
+                //m_workSheet.Cells[6, 20] = "17.00-18.00";
+                //m_workSheet.Cells[6, 21] = "18.00-19.00";
+                //m_workSheet.Cells[6, 22] = "19.00-20.00";
+                //m_workSheet.Cells[6, 23] = "20.00-21.00";
+                //m_workSheet.Cells[6, 24] = "21.00-22.00";
+                //m_workSheet.Cells[6, 25] = "22.00-23.00";
+                //m_workSheet.Cells[6, 26] = "23.00-24.00";
+
+                //m_workSheet.get_Range("B7", "B37").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B7", "B37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+                //m_workSheet.Cells[7, 2] = "1";
+                //m_workSheet.Cells[8, 2] = "2";
+                //m_workSheet.Cells[9, 2] = "3";
+                //m_workSheet.Cells[10, 2] = "4";
+                //m_workSheet.Cells[11, 2] = "5";
+                //m_workSheet.Cells[12, 2] = "6";
+                //m_workSheet.Cells[13, 2] = "7";
+                //m_workSheet.Cells[14, 2] = "8";
+                //m_workSheet.Cells[15, 2] = "9";
+                //m_workSheet.Cells[16, 2] = "10";
+                //m_workSheet.Cells[17, 2] = "11";
+                //m_workSheet.Cells[18, 2] = "12";
+                //m_workSheet.Cells[19, 2] = "13";
+                //m_workSheet.Cells[20, 2] = "14";
+                //m_workSheet.Cells[21, 2] = "15";
+                //m_workSheet.Cells[22, 2] = "16";
+                //m_workSheet.Cells[23, 2] = "17";
+                //m_workSheet.Cells[24, 2] = "18";
+                //m_workSheet.Cells[25, 2] = "19";
+                //m_workSheet.Cells[26, 2] = "20";
+                //m_workSheet.Cells[27, 2] = "21";
+                //m_workSheet.Cells[28, 2] = "22";
+                //m_workSheet.Cells[29, 2] = "23";
+                //m_workSheet.Cells[30, 2] = "24";
+                //m_workSheet.Cells[31, 2] = "25";
+                //m_workSheet.Cells[32, 2] = "26";
+                //m_workSheet.Cells[33, 2] = "27";
+                //m_workSheet.Cells[34, 2] = "28";
+                //m_workSheet.Cells[35, 2] = "29";
+                //m_workSheet.Cells[36, 2] = "30";
+                //m_workSheet.Cells[37, 2] = "31";
+
+                //m_workSheet.get_Range("C7", "Z37").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("C7", "Z37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+                //TimeSpan interval_w = date2_w - date1_w;
+                //decimal fl1 = 0;
+                //string date_sql = "";
+                //decimal[] act = new decimal[48];
+
+                //DateTime date1_w2 = date1_w;
+
+                //for (int k = 0; k <= (interval_w.Days - 1); k++)
+                //{
+
+                //    for (int j = 1; j <= 48; j++)
+                //    {
+                //        date1_w2 = date1_w2.AddMinutes(30);
+
+                //        date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
+                //        result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro55 where electro55_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
+
+                //        try
+                //        {
+                //            fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro55_active"].ToString());
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            fl1 = 0;
+                //        }
+                //        finally
+                //        {
+
+                //        }
+
+                //        act[j - 1] = fl1;
+
+                //    }
+
+                //    for (int j = 1; j <= 48; j++)
+                //    {
+
+                //        m_workSheet.Cells[7 + k, 3 + (j - 1) / 2] = (act[j - 1] + act[j]) / 2;
+                //        j++;
+                //    }
+
+                //}
+
+                //m_workSheet.get_Range("Y38").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("Y38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("Y38").Font.Bold = true;
+                //m_workSheet.Cells[38, 25] = "ИТОГО";
+
+                //m_workSheet.get_Range("Z38").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("Z38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("Z38").Font.Bold = true;
+                //m_workSheet.Cells[38, 26] = "=SUM(C7:Z37)*B4";
+
+                //m_workSheet.get_Range("B5", "Z37").BorderAround();
+                //m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                //m_workSheet.get_Range("Y38", "Z38").BorderAround();
+                //m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //// m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                ////------
+
+                //m_workSheet.get_Range("A39").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("A39").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("A39").Font.Bold = false;
+                //m_workSheet.Cells[39, 1] = "Счетчик №";
+
+                //m_workSheet.get_Range("B39").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("B39").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("B39").Font.Bold = true;
+                //m_workSheet.Cells[39, 2] = "1753886";
+
+                //m_workSheet.get_Range("A40").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("A40").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("A40").Font.Bold = false;
+                //m_workSheet.Cells[40, 1] = "Тр.тока (коэф)";
+
+                //m_workSheet.get_Range("B40").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("B40").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("B40").Font.Bold = true;
+                //m_workSheet.Cells[40, 2] = "120";
+
+
+
+                //m_workSheet.get_Range("B41", "B71").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B41", "B71").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+                //m_workSheet.Cells[41, 2] = "1";
+                //m_workSheet.Cells[42, 2] = "2";
+                //m_workSheet.Cells[43, 2] = "3";
+                //m_workSheet.Cells[44, 2] = "4";
+                //m_workSheet.Cells[45, 2] = "5";
+                //m_workSheet.Cells[46, 2] = "6";
+                //m_workSheet.Cells[47, 2] = "7";
+                //m_workSheet.Cells[48, 2] = "8";
+                //m_workSheet.Cells[49, 2] = "9";
+                //m_workSheet.Cells[50, 2] = "10";
+                //m_workSheet.Cells[51, 2] = "11";
+                //m_workSheet.Cells[52, 2] = "12";
+                //m_workSheet.Cells[53, 2] = "13";
+                //m_workSheet.Cells[54, 2] = "14";
+                //m_workSheet.Cells[55, 2] = "15";
+                //m_workSheet.Cells[56, 2] = "16";
+                //m_workSheet.Cells[57, 2] = "17";
+                //m_workSheet.Cells[58, 2] = "18";
+                //m_workSheet.Cells[59, 2] = "19";
+                //m_workSheet.Cells[60, 2] = "20";
+                //m_workSheet.Cells[61, 2] = "21";
+                //m_workSheet.Cells[62, 2] = "22";
+                //m_workSheet.Cells[63, 2] = "23";
+                //m_workSheet.Cells[64, 2] = "24";
+                //m_workSheet.Cells[65, 2] = "25";
+                //m_workSheet.Cells[66, 2] = "26";
+                //m_workSheet.Cells[67, 2] = "27";
+                //m_workSheet.Cells[68, 2] = "28";
+                //m_workSheet.Cells[69, 2] = "29";
+                //m_workSheet.Cells[70, 2] = "30";
+                //m_workSheet.Cells[71, 2] = "31";
+
+                //m_workSheet.get_Range("C41", "Z71").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("C41", "Z71").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+
+                //fl1 = 0;
+                //date_sql = "";
+                //act = new decimal[48];
+                //date1_w2 = date1_w;
+
+                //for (int k = 0; k <= (interval_w.Days - 1); k++)
+                //{
+
+                //    for (int j = 1; j <= 48; j++)
+                //    {
+                //        date1_w2 = date1_w2.AddMinutes(30);
+
+                //        date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
+                //        result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro56 where electro56_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
+
+                //        try
+                //        {
+                //            fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro56_active"].ToString());
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            fl1 = 0;
+                //        }
+                //        finally
+                //        {
+
+                //        }
+
+                //        act[j - 1] = fl1;
+
+                //    }
+
+                //    for (int j = 1; j <= 48; j++)
+                //    {
+
+                //        m_workSheet.Cells[41 + k, 3 + (j - 1) / 2] = (act[j - 1] + act[j]) / 2;
+                //        j++;
+                //    }
+
+                //}
+
+                //m_workSheet.get_Range("Y72").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("Y72").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("Y72").Font.Bold = true;
+                //m_workSheet.Cells[72, 25] = "ИТОГО";
+
+                //m_workSheet.get_Range("Z72").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("Z72").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("Z72").Font.Bold = true;
+                //m_workSheet.Cells[72, 26] = "=SUM(C41:Z71)*B40";
+
+                //m_workSheet.get_Range("B41", "Z71").BorderAround();
+                //m_workSheet.get_Range("B41", "Z71").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //m_workSheet.get_Range("B41", "Z71").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                //m_workSheet.get_Range("Y72", "Z72").BorderAround();
+                //m_workSheet.get_Range("Y72", "Z72").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                ////m_workSheet.get_Range("Y72", "Z72").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                ////------
+
+                //m_workSheet.get_Range("A73").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("A73").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("A73").Font.Bold = false;
+                //m_workSheet.Cells[73, 1] = "Счетчик №";
+
+                //m_workSheet.get_Range("B73").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("B73").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("B73").Font.Bold = true;
+                //m_workSheet.Cells[73, 2] = "4479066";
+
+                //m_workSheet.get_Range("A74").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("A74").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("A74").Font.Bold = false;
+                //m_workSheet.Cells[74, 1] = "Тр.тока (коэф)";
+
+                //m_workSheet.get_Range("B74").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("B74").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("B74").Font.Bold = true;
+                //m_workSheet.Cells[74, 2] = "20";
+
+
+
+                //m_workSheet.get_Range("B75", "B105").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B75", "B105").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+                //m_workSheet.Cells[75, 2] = "1";
+                //m_workSheet.Cells[76, 2] = "2";
+                //m_workSheet.Cells[77, 2] = "3";
+                //m_workSheet.Cells[78, 2] = "4";
+                //m_workSheet.Cells[79, 2] = "5";
+                //m_workSheet.Cells[80, 2] = "6";
+                //m_workSheet.Cells[81, 2] = "7";
+                //m_workSheet.Cells[82, 2] = "8";
+                //m_workSheet.Cells[83, 2] = "9";
+                //m_workSheet.Cells[84, 2] = "10";
+                //m_workSheet.Cells[85, 2] = "11";
+                //m_workSheet.Cells[86, 2] = "12";
+                //m_workSheet.Cells[87, 2] = "13";
+                //m_workSheet.Cells[88, 2] = "14";
+                //m_workSheet.Cells[89, 2] = "15";
+                //m_workSheet.Cells[90, 2] = "16";
+                //m_workSheet.Cells[91, 2] = "17";
+                //m_workSheet.Cells[92, 2] = "18";
+                //m_workSheet.Cells[93, 2] = "19";
+                //m_workSheet.Cells[94, 2] = "20";
+                //m_workSheet.Cells[95, 2] = "21";
+                //m_workSheet.Cells[96, 2] = "22";
+                //m_workSheet.Cells[97, 2] = "23";
+                //m_workSheet.Cells[98, 2] = "24";
+                //m_workSheet.Cells[99, 2] = "25";
+                //m_workSheet.Cells[100, 2] = "26";
+                //m_workSheet.Cells[101, 2] = "27";
+                //m_workSheet.Cells[102, 2] = "28";
+                //m_workSheet.Cells[103, 2] = "29";
+                //m_workSheet.Cells[104, 2] = "30";
+                //m_workSheet.Cells[105, 2] = "31";
+
+                //m_workSheet.get_Range("C75", "Z105").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("C75", "Z105").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+
+                //fl1 = 0;
+                //date_sql = "";
+                //act = new decimal[48];
+                //date1_w2 = date1_w;
+
+                //for (int k = 0; k <= (interval_w.Days - 1); k++)
+                //{
+
+                //    for (int j = 1; j <= 48; j++)
+                //    {
+                //        date1_w2 = date1_w2.AddMinutes(30);
+
+                //        date_sql = date1_w2.Year + "-" + date1_w2.Month + "-" + date1_w2.Day + " " + date1_w2.Hour + ":" + date1_w2.Minute + ":00";
+                //        result = MySqlLib.MySqlData.MySqlExecuteData.SqlReturnDataset("SELECT * FROM resources.electro42 where electro42_datetime = '" + date_sql + "' LIMIT 0,1", conn_str);
+                //        try
+                //        {
+                //            fl1 = Convert.ToDecimal(result.ResultData.DefaultView.Table.Rows[0]["electro42_active"].ToString());
+                //        }
+                //        catch (Exception ex)
+                //        {
+                //            fl1 = 0;
+                //        }
+                //        finally
+                //        {
+
+                //        }
+
+                //        act[j - 1] = fl1;
+
+                //    }
+
+                //    for (int j = 1; j <= 48; j++)
+                //    {
+
+                //        m_workSheet.Cells[75 + k, 3 + (j - 1) / 2] = (act[j - 1] + act[j]) / 2;
+                //        j++;
+                //    }
+
+                //}
+
+                //m_workSheet.get_Range("Y106").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("Y106").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("Y106").Font.Bold = true;
+                //m_workSheet.Cells[106, 25] = "ИТОГО";
+
+                //m_workSheet.get_Range("Z106").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("Z106").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("Z106").Font.Bold = true;
+                //m_workSheet.Cells[106, 26] = "=SUM(C75:Z105)*B74";
+
+                //m_workSheet.get_Range("B75", "Z105").BorderAround();
+                //m_workSheet.get_Range("B75", "Z105").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //m_workSheet.get_Range("B75", "Z105").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                //m_workSheet.get_Range("Y106", "Z106").BorderAround();
+                //m_workSheet.get_Range("Y106", "Z106").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //// m_workSheet.get_Range("Y106", "Z106").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+
+                //m_workSheet.get_Range("B109").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B109").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[109, 2] = "Главный энергетик ____________ Носов В.В.";
+
+
+
+                //m_workBook.Sheets[2].Select();
+                //m_workSheet = m_app.ActiveSheet as Excel.Worksheet;
+                //m_workSheet.Name = "Summa";
+
+                //m_workSheet.Columns.ColumnWidth = 11.29;
+
+                //// m_workSheet.Cells.NumberFormat = "@";
+                //m_workSheet.Cells.NumberFormat = "General";
+
+                //m_workSheet.get_Range("A1").ColumnWidth = 2.29;
+
+                //m_workSheet.get_Range("A1", "Z1").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("A1").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[1, 1] = "Сведения";
+
+                //m_workSheet.get_Range("G2", "T2").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("G2").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("G2").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[2, 7] = "о фактическом почасовом расходе электрической энергии за " + month_str + " " + date1_w.Year + " года ОАО \"Аньковское\"";
+
+                //m_workSheet.get_Range("B3", "D3").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B3").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[3, 2] = "Договор №29";
+
+                //m_workSheet.get_Range("X3", "Z3").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("X3").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("X3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[3, 24] = "Уровень СН2";
+
+
+                //m_workSheet.get_Range("B6").RowHeight = 30;
+                //m_workSheet.get_Range("B5", "B6").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B5").WrapText = true;
+                //m_workSheet.get_Range("B5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 2] = "Число расчетного месяца";
+                
+                //m_workSheet.get_Range("C5", "Z5").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("C5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 3] = "Время суток";
+
+                //m_workSheet.get_Range("C6", "Z6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C6", "Z6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+                //m_workSheet.Cells[6, 3] = "0.00-1.00";
+                //m_workSheet.Cells[6, 4] = "1.00-2.00";
+                //m_workSheet.Cells[6, 5] = "2.00-3.00";
+                //m_workSheet.Cells[6, 6] = "3.00-4.00";
+                //m_workSheet.Cells[6, 7] = "4.00-5.00";
+                //m_workSheet.Cells[6, 8] = "5.00-6.00";
+                //m_workSheet.Cells[6, 9] = "6.00-7.00";
+                //m_workSheet.Cells[6, 10] = "7.00-8.00";
+                //m_workSheet.Cells[6, 11] = "8.00-9.00";
+                //m_workSheet.Cells[6, 12] = "9.00-10.00";
+                //m_workSheet.Cells[6, 13] = "10.00-11.00";
+                //m_workSheet.Cells[6, 14] = "11.00-12.00";
+                //m_workSheet.Cells[6, 15] = "12.00-13.00";
+                //m_workSheet.Cells[6, 16] = "13.00-14.00";
+                //m_workSheet.Cells[6, 17] = "14.00-15.00";
+                //m_workSheet.Cells[6, 18] = "15.00-16.00";
+                //m_workSheet.Cells[6, 19] = "16.00-17.00";
+                //m_workSheet.Cells[6, 20] = "17.00-18.00";
+                //m_workSheet.Cells[6, 21] = "18.00-19.00";
+                //m_workSheet.Cells[6, 22] = "19.00-20.00";
+                //m_workSheet.Cells[6, 23] = "20.00-21.00";
+                //m_workSheet.Cells[6, 24] = "21.00-22.00";
+                //m_workSheet.Cells[6, 25] = "22.00-23.00";
+                //m_workSheet.Cells[6, 26] = "23.00-24.00";
+
+                //m_workSheet.get_Range("B7", "B37").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B7", "B37").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+
+                //m_workSheet.Cells[7, 2] = "1";
+                //m_workSheet.Cells[8, 2] = "2";
+                //m_workSheet.Cells[9, 2] = "3";
+                //m_workSheet.Cells[10, 2] = "4";
+                //m_workSheet.Cells[11, 2] = "5";
+                //m_workSheet.Cells[12, 2] = "6";
+                //m_workSheet.Cells[13, 2] = "7";
+                //m_workSheet.Cells[14, 2] = "8";
+                //m_workSheet.Cells[15, 2] = "9";
+                //m_workSheet.Cells[16, 2] = "10";
+                //m_workSheet.Cells[17, 2] = "11";
+                //m_workSheet.Cells[18, 2] = "12";
+                //m_workSheet.Cells[19, 2] = "13";
+                //m_workSheet.Cells[20, 2] = "14";
+                //m_workSheet.Cells[21, 2] = "15";
+                //m_workSheet.Cells[22, 2] = "16";
+                //m_workSheet.Cells[23, 2] = "17";
+                //m_workSheet.Cells[24, 2] = "18";
+                //m_workSheet.Cells[25, 2] = "19";
+                //m_workSheet.Cells[26, 2] = "20";
+                //m_workSheet.Cells[27, 2] = "21";
+                //m_workSheet.Cells[28, 2] = "22";
+                //m_workSheet.Cells[29, 2] = "23";
+                //m_workSheet.Cells[30, 2] = "24";
+                //m_workSheet.Cells[31, 2] = "25";
+                //m_workSheet.Cells[32, 2] = "26";
+                //m_workSheet.Cells[33, 2] = "27";
+                //m_workSheet.Cells[34, 2] = "28";
+                //m_workSheet.Cells[35, 2] = "29";
+                //m_workSheet.Cells[36, 2] = "30";
+                //m_workSheet.Cells[37, 2] = "31";
+
+
+                //for (int j = 0; j <= 30; j++)
+                //{
+                //    m_workSheet.Cells[7+j, 3]  = "=Worksheet!C" + Convert.ToString(7 + j) + "*120+Worksheet!C" + Convert.ToString(41 + j) + "*120+Worksheet!C" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 4]  = "=Worksheet!D" + Convert.ToString(7 + j) + "*120+Worksheet!D" + Convert.ToString(41 + j) + "*120+Worksheet!D" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 5]  = "=Worksheet!E" + Convert.ToString(7 + j) + "*120+Worksheet!E" + Convert.ToString(41 + j) + "*120+Worksheet!E" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 6]  = "=Worksheet!F" + Convert.ToString(7 + j) + "*120+Worksheet!F" + Convert.ToString(41 + j) + "*120+Worksheet!F" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 7]  = "=Worksheet!G" + Convert.ToString(7 + j) + "*120+Worksheet!G" + Convert.ToString(41 + j) + "*120+Worksheet!G" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 8]  = "=Worksheet!H" + Convert.ToString(7 + j) + "*120+Worksheet!H" + Convert.ToString(41 + j) + "*120+Worksheet!H" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 9]  = "=Worksheet!I" + Convert.ToString(7 + j) + "*120+Worksheet!I" + Convert.ToString(41 + j) + "*120+Worksheet!I" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 10] = "=Worksheet!J" + Convert.ToString(7 + j) + "*120+Worksheet!J" + Convert.ToString(41 + j) + "*120+Worksheet!J" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 11] = "=Worksheet!K" + Convert.ToString(7 + j) + "*120+Worksheet!K" + Convert.ToString(41 + j) + "*120+Worksheet!K" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 12] = "=Worksheet!L" + Convert.ToString(7 + j) + "*120+Worksheet!L" + Convert.ToString(41 + j) + "*120+Worksheet!L" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 13] = "=Worksheet!M" + Convert.ToString(7 + j) + "*120+Worksheet!M" + Convert.ToString(41 + j) + "*120+Worksheet!M" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 14] = "=Worksheet!N" + Convert.ToString(7 + j) + "*120+Worksheet!N" + Convert.ToString(41 + j) + "*120+Worksheet!N" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 15] = "=Worksheet!O" + Convert.ToString(7 + j) + "*120+Worksheet!O" + Convert.ToString(41 + j) + "*120+Worksheet!O" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 16] = "=Worksheet!P" + Convert.ToString(7 + j) + "*120+Worksheet!P" + Convert.ToString(41 + j) + "*120+Worksheet!P" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 17] = "=Worksheet!Q" + Convert.ToString(7 + j) + "*120+Worksheet!Q" + Convert.ToString(41 + j) + "*120+Worksheet!Q" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 18] = "=Worksheet!R" + Convert.ToString(7 + j) + "*120+Worksheet!R" + Convert.ToString(41 + j) + "*120+Worksheet!R" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 19] = "=Worksheet!S" + Convert.ToString(7 + j) + "*120+Worksheet!S" + Convert.ToString(41 + j) + "*120+Worksheet!S" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 20] = "=Worksheet!T" + Convert.ToString(7 + j) + "*120+Worksheet!T" + Convert.ToString(41 + j) + "*120+Worksheet!T" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 21] = "=Worksheet!U" + Convert.ToString(7 + j) + "*120+Worksheet!U" + Convert.ToString(41 + j) + "*120+Worksheet!U" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 22] = "=Worksheet!V" + Convert.ToString(7 + j) + "*120+Worksheet!V" + Convert.ToString(41 + j) + "*120+Worksheet!V" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 23] = "=Worksheet!W" + Convert.ToString(7 + j) + "*120+Worksheet!W" + Convert.ToString(41 + j) + "*120+Worksheet!W" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 24] = "=Worksheet!X" + Convert.ToString(7 + j) + "*120+Worksheet!X" + Convert.ToString(41 + j) + "*120+Worksheet!X" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 25] = "=Worksheet!Y" + Convert.ToString(7 + j) + "*120+Worksheet!Y" + Convert.ToString(41 + j) + "*120+Worksheet!Y" + Convert.ToString(75 + j) + "*20";
+                //    m_workSheet.Cells[7+j, 26] = "=Worksheet!Z" + Convert.ToString(7 + j) + "*120+Worksheet!Z" + Convert.ToString(41 + j) + "*120+Worksheet!Z" + Convert.ToString(75 + j) + "*20";
+
+                //}
+
+
+                //m_workSheet.get_Range("Y38").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("Y38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("Y38").Font.Bold = true;
+                //m_workSheet.Cells[38, 25] = "Сумма";
+
+                //m_workSheet.get_Range("Z38").HorizontalAlignment = Excel.XlHAlign.xlHAlignRight;
+                //m_workSheet.get_Range("Z38").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.get_Range("Z38").Font.Bold = true;
+                //m_workSheet.Cells[38, 26] = "=SUM(C7:Z37)";
+
+                //m_workSheet.get_Range("B5", "Z37").BorderAround();
+                //m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //m_workSheet.get_Range("B5", "Z37").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                //m_workSheet.get_Range("Y38", "Z38").BorderAround();
+                //m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //// m_workSheet.get_Range("Y38", "Z38").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                //m_workSheet.get_Range("B41").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B41").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[41, 2] = "Главный энергетик ____________ Носов В.В.";
+
+                //m_workSheet.get_Range("Q41").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("Q41").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[41, 17] = "М.П.";
+
+                ////-----------------------
+
+                //m_workBook.Sheets[3].Select();
+                //m_workSheet = m_app.ActiveSheet as Excel.Worksheet;
+                //m_workSheet.Name = "Rashod";
+
+                 
+                // m_workSheet.Cells.NumberFormat = "@";
+                // m_workSheet.get_Range("D7", "D11").NumberFormat = "General";
+                // m_workSheet.get_Range("G19", "G20").NumberFormat = "General";
+
+                ////m_workSheet.Cells.NumberFormat = "General";
+                //m_workSheet.get_Range("A1", "G27").Font.Bold = true;
+
+                //m_workSheet.get_Range("A1").ColumnWidth = 9.29;
+                //m_workSheet.get_Range("B1").ColumnWidth = 24.29;
+                //m_workSheet.get_Range("C1").ColumnWidth = 14.29;
+                //m_workSheet.get_Range("D1").ColumnWidth = 14.29;
+                //m_workSheet.get_Range("E1").ColumnWidth = 14.29;
+                //m_workSheet.get_Range("F1").ColumnWidth = 14.29;
+                //m_workSheet.get_Range("G1").ColumnWidth = 14.29;
+
+                //m_workSheet.get_Range("A1", "G1").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("A1").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[1, 1] = "СВЕДЕНИЯ";
+
+                //m_workSheet.get_Range("A2", "G2").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("A2").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A2").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[2, 1] = "о расходе электроэнергии по ОАО \"Аньковское\", за " + month_str + " " + date1_w.Year + " года.";
+
+                //m_workSheet.get_Range("A3").RowHeight = 30;
+
+                //m_workSheet.get_Range("A3", "A4").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("A3").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[3, 1] = "№ п" + "\\" + "п";
+
+                //m_workSheet.get_Range("B3", "B4").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B3").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[3, 2] = "Наименование точки\nучета";
+
+                //m_workSheet.get_Range("C3", "C4").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("C3").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[3, 3] = "Номер\nприбора учета";
+
+                //m_workSheet.get_Range("D3", "E3").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("D3").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("D3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[3, 4] = "Показания прибора учета";
+
+                //m_workSheet.get_Range("F3", "F4").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("F3").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("F3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[3, 6] = "Расчетный к-т";
+
+                //m_workSheet.get_Range("G3", "G4").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("G3").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("G3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[3, 7] = "Расход\nэ/энергии\n(кВтч)";
+
+                //m_workSheet.get_Range("D4").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("D4").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[4, 4] = "Конечное";
+
+                //m_workSheet.get_Range("E4").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("E4").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[4, 5] = "Начальное";
+
+                //m_workSheet.get_Range("A5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 1] = "1";
+
+                //m_workSheet.get_Range("B5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 2] = "2";
+
+                //m_workSheet.get_Range("C5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 3] = "3";
+
+                //m_workSheet.get_Range("D5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("D5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 4] = "4";
+
+                //m_workSheet.get_Range("E5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("E5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 5] = "5";
+
+                //m_workSheet.get_Range("F5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("F5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 6] = "6";
+
+                //m_workSheet.get_Range("G5").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("G5").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[5, 7] = "7";
+
+                //m_workSheet.get_Range("A6").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[6, 1] = "1. ";
+
+                //m_workSheet.get_Range("B6", "G6").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B6").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B6").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[6, 2] = "Потребление электроэнергии Потребителем";
+
+                //m_workSheet.get_Range("A7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[7, 1] = "1.1 ";
+
+                //m_workSheet.get_Range("B7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[7, 2] = "\"Аньково\" ВЛ-102 ЗТП-400\nТ-1 активный";
+
+                //m_workSheet.get_Range("C7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[7, 3] = "00335385 ";
+
+                //m_workSheet.get_Range("D7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("D7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[7, 4] = "=G7/120+E7";
+
+                //m_workSheet.get_Range("F7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("F7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[7, 6] = "120";
+
+                //m_workSheet.get_Range("A8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[8, 1] = "1.2 ";
+
+                //m_workSheet.get_Range("B8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[8, 2] = "\"Аньково\" ВЛ-102 ЗТП-400\nТ-1 реактивный";
+
+                //m_workSheet.get_Range("C8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[8, 3] = "00335385 ";
+
+                //m_workSheet.get_Range("D8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("D8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[8, 4] = "=G8/120+E8";
+
+                //m_workSheet.get_Range("F8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("F8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[8, 6] = "120";
+
+                //m_workSheet.get_Range("A9").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[9, 1] = "1.3 ";
+
+                //m_workSheet.get_Range("B9").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[9, 2] = "\"Аньково\" ВЛ-102 ЗТП-400\nТ-2 активный";
+
+                //m_workSheet.get_Range("C9").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[9, 3] = "01753886-07 ";
+
+                //m_workSheet.get_Range("D9").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("D9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[9, 4] = "=G9/120+E9";
+
+                //m_workSheet.get_Range("F9").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("F9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[9, 6] = "120";
+
+                //m_workSheet.get_Range("A10").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A10").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[10, 1] = "1.4 ";
+
+                //m_workSheet.get_Range("B10").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B10").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[10, 2] = "\"Аньково\" ВЛ-102 ЗТП-400\nТ-2 реактивный";
+
+                //m_workSheet.get_Range("C10").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C10").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[10, 3] = "01753886-07 ";
+
+                //m_workSheet.get_Range("D10").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("D10").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[10, 4] = "=G10/120+E10";
+
+                //m_workSheet.get_Range("F10").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("F10").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[10, 6] = "120";
+
+                //m_workSheet.get_Range("A11").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[11, 1] = "1.5 ";
+
+                //m_workSheet.get_Range("B11").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[11, 2] = "\"Аньково\" ВЛ-102 КТП-400\nОчистные сооружения";
+
+                //m_workSheet.get_Range("C11").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("C11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[11, 3] = "0447906609 ";
+
+                //m_workSheet.get_Range("D11").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("D11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[11, 4] = "=G11/20+E11";
+
+                //m_workSheet.get_Range("F11").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("F11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[11, 6] = "20";
+
+                //m_workSheet.get_Range("A12").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A12").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[12, 1] = "2. ";
+
+                //m_workSheet.get_Range("B12", "F12").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B12").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B12").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[12, 2] = "Потерии э/э оплачиваемые активные";
+
+                //m_workSheet.get_Range("G12").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("G12").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[12, 7] = textBox6.Text;
+
+                //m_workSheet.get_Range("A13").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A13").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[13, 1] = "2.1 ";
+
+                //m_workSheet.get_Range("A14").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A14").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[14, 1] = "3.0 ";
+
+                //m_workSheet.get_Range("B14", "F14").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B14").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B14").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[14, 2] = "Потерии э/э оплачиваемые реактивные";
+
+                //m_workSheet.get_Range("G14").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("G14").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[14, 7] = textBox7.Text;
+
+                //m_workSheet.get_Range("A15").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A15").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[15, 1] = "3.1 ";
+
+                //m_workSheet.get_Range("B15").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("B15").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[15, 2] = "Реактивное потребление\nпо \"Правилу\"";
+
+                //m_workSheet.get_Range("A16").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A16").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[16, 1] = "3.2 ";
+
+                //m_workSheet.get_Range("A17").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A17").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[17, 1] = "4. ";
+
+                //m_workSheet.get_Range("B17", "G17").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B17").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B17").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[17, 2] = "Замена приборов учета э/э";
+
+                //m_workSheet.get_Range("A18").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A18").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[18, 1] = "4.1 ";
+
+                //m_workSheet.get_Range("A19").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("A19").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[19, 1] = "4.2 ";
+
+                //m_workSheet.get_Range("B19", "F19").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B19").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B19").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[19, 2] = "ИТОГО ОБЩИЙ РАСХОД (С ПОТЕРЯМИ), АКТИВНЫЙ";
+
+                //m_workSheet.get_Range("G19").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("G19").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[19, 7] = "=G7+G9+G11+G12";
+
+                //m_workSheet.get_Range("B20", "F20").Merge(System.Type.Missing);
+                //m_workSheet.get_Range("B20").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B20").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[20, 2] = "ИТОГО ОБЩИЙ РАСХОД (С ПОТЕРЯМИ), РЕАКТИВНЫЙ";
+
+                //m_workSheet.get_Range("G20").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                //m_workSheet.get_Range("G20").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[20, 7] = "=G8+G10+G14";
+
+                //m_workSheet.get_Range("F23").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("F23").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[23, 6] = "М. П.";
+
+                //m_workSheet.get_Range("B25").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B25").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[25, 2] = "Исполнитель__________________Носов В.В.";
+
+                //m_workSheet.get_Range("B27").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+                //m_workSheet.get_Range("B27").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                //m_workSheet.Cells[27, 2] = "телефон (49353) 33102";
+
+                //m_workSheet.get_Range("A3", "G21").BorderAround();
+                //m_workSheet.get_Range("A3", "G21").Borders[Excel.XlBordersIndex.xlInsideVertical].LineStyle = Excel.XlLineStyle.xlContinuous;
+                //m_workSheet.get_Range("A3", "G21").Borders[Excel.XlBordersIndex.xlInsideHorizontal].LineStyle = Excel.XlLineStyle.xlContinuous;
+
+
+                string[] portnames = SerialPort.GetPortNames();
+                SerialPort port = new SerialPort("COM2", 9600, Parity.None, 8, StopBits.One);
+
+                byte[] buff = { 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x77, 0x81 };
+                byte[] buff2 = { 0x55, 0x08, 0x13, 0x27, 0xDD };
+
+                
+                port.Open();
+
+                port.Write(buff, 0, 11);
+                Thread.Sleep(1000);
+                int byteRecieved = port.BytesToRead;
+                byte[] messByte = new byte[byteRecieved];
+                port.Read(messByte, 0, byteRecieved);
+                Thread.Sleep(1000);
+
+                port.Write(buff2, 0, 5);
+                Thread.Sleep(1000);
+                int byteRecieved2 = port.BytesToRead;
+                byte[] messByte2 = new byte[byteRecieved2];
+                port.Read(messByte2, 0, byteRecieved2);
+                Thread.Sleep(1000);
+
+                port.Write(begin55, 0, 8);
+                Thread.Sleep(1000);
+                int byteRecieved3 = port.BytesToRead;
+                byte[] messByte3 = new byte[byteRecieved3];
+                port.Read(messByte3, 0, byteRecieved3);
+                Thread.Sleep(1000);
+
+
+
+                port.Close();
 
             }
 
