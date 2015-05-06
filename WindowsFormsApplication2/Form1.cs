@@ -6886,32 +6886,32 @@ namespace WindowsFormsApplication2
 
                 decimal month_reactive42 = Convert.ToDecimal(fl1) / 1000;
 
-                m_workSheet.get_Range("D7", "G11").NumberFormat = "General";
+                m_workSheet.get_Range("D7", "G11").NumberFormat = "@";
 
                 m_workSheet.get_Range("D7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("D7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[7, 4] = Convert.ToString(active55) + " ";
+                m_workSheet.Cells[7, 4] = "'" + Convert.ToString(active55);
 
                 m_workSheet.get_Range("E7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("E7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[7, 5] = Convert.ToString(active55 - month_active55) + " ";
+                m_workSheet.Cells[7, 5] = "'" + Convert.ToString(active55 - month_active55);
 
 
                 m_workSheet.get_Range("D8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("D8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[8, 4] = Convert.ToString(reactive55) + " ";
+                m_workSheet.Cells[8, 4] = "'" + Convert.ToString(reactive55);
 
                 m_workSheet.get_Range("E8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("E8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[8, 5] = Convert.ToString(reactive55 - month_reactive55) + " ";
+                m_workSheet.Cells[8, 5] = "'" + Convert.ToString(reactive55 - month_reactive55);
 
                 m_workSheet.get_Range("G7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("G7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[7, 7] = Convert.ToString(month_active55 * 120) + " ";
+                m_workSheet.Cells[7, 7] = "'" + Convert.ToString(month_active55 * 120);
 
                 m_workSheet.get_Range("G8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("G8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[8, 7] = Convert.ToString(month_reactive55 * 120) + " ";
+                m_workSheet.Cells[8, 7] = "'" + Convert.ToString(month_reactive55 * 120);
 
 
             }
