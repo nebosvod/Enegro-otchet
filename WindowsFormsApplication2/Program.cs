@@ -18,4 +18,9 @@ namespace WindowsFormsApplication2
             Application.Run(new Form1());
         }
     }
+
+    static class Public_Data
+    {
+        public static string Value { get; set; }
+    }
 }

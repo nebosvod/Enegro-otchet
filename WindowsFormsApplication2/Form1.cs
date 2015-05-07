@@ -5884,7 +5884,7 @@ namespace WindowsFormsApplication2
 
 
                 m_workSheet.Cells.NumberFormat = "@";
-                m_workSheet.get_Range("G19", "G20").NumberFormat = "General";
+                
 
                 //m_workSheet.Cells.NumberFormat = "General";
                 m_workSheet.get_Range("A1", "G27").Font.Bold = true;
@@ -6074,9 +6074,7 @@ namespace WindowsFormsApplication2
                 m_workSheet.get_Range("B12").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.Cells[12, 2] = "Потерии э/э оплачиваемые активные";
 
-                m_workSheet.get_Range("G12").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("G12").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[12, 7] = textBox6.Text;
+
 
                 m_workSheet.get_Range("A13").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("A13").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
@@ -6091,9 +6089,7 @@ namespace WindowsFormsApplication2
                 m_workSheet.get_Range("B14").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.Cells[14, 2] = "Потерии э/э оплачиваемые реактивные";
 
-                m_workSheet.get_Range("G14").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("G14").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[14, 7] = textBox7.Text;
+
 
                 m_workSheet.get_Range("A15").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("A15").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
@@ -6129,18 +6125,10 @@ namespace WindowsFormsApplication2
                 m_workSheet.get_Range("B19").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.Cells[19, 2] = "ИТОГО ОБЩИЙ РАСХОД (С ПОТЕРЯМИ), АКТИВНЫЙ";
 
-                m_workSheet.get_Range("G19").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("G19").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[19, 7] = "=G7+G9+G11+G12";
-
                 m_workSheet.get_Range("B20", "F20").Merge(System.Type.Missing);
                 m_workSheet.get_Range("B20").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
                 m_workSheet.get_Range("B20").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.Cells[20, 2] = "ИТОГО ОБЩИЙ РАСХОД (С ПОТЕРЯМИ), РЕАКТИВНЫЙ";
-
-                m_workSheet.get_Range("G20").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                m_workSheet.get_Range("G20").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[20, 7] = "=G8+G10+G14";
 
                 m_workSheet.get_Range("F23").HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
                 m_workSheet.get_Range("F23").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
@@ -6886,32 +6874,185 @@ namespace WindowsFormsApplication2
 
                 decimal month_reactive42 = Convert.ToDecimal(fl1) / 1000;
 
-                m_workSheet.get_Range("D7", "G11").NumberFormat = "@";
 
+
+                m_workSheet.get_Range("D70").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("D70").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("D70").Font.ColorIndex = 2;
+                m_workSheet.Cells[70, 4] = "'" + Convert.ToString(active55);
+
+                m_workSheet.get_Range("E70").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("E70").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("E70").Font.ColorIndex = 2;
+                m_workSheet.Cells[70, 5] = "'" + Convert.ToString(active55 - month_active55);
+
+                m_workSheet.get_Range("D80").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("D80").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("D80").Font.ColorIndex = 2;
+                m_workSheet.Cells[80, 4] = "'" + Convert.ToString(reactive55);
+
+                m_workSheet.get_Range("E80").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("E80").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("E80").Font.ColorIndex = 2;
+                m_workSheet.Cells[80, 5] = "'" + Convert.ToString(reactive55 - month_reactive55);
+
+                m_workSheet.get_Range("G70").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G70").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("G70").Font.ColorIndex = 2;
+                m_workSheet.Cells[70, 7] = "'" + Convert.ToString(month_active55 * 120);
+
+                m_workSheet.get_Range("G80").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G80").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("G80").Font.ColorIndex = 2;
+                m_workSheet.Cells[80, 7] = "'" + Convert.ToString(month_reactive55 * 120);
+
+                m_workSheet.get_Range("D90").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("D90").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("D90").Font.ColorIndex = 2;
+                m_workSheet.Cells[90, 4] = "'" + Convert.ToString(active56);
+
+                m_workSheet.get_Range("E90").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("E90").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("E90").Font.ColorIndex = 2;
+                m_workSheet.Cells[90, 5] = "'" + Convert.ToString(active56 - month_active56);
+
+                m_workSheet.get_Range("D100").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("D100").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("D100").Font.ColorIndex = 2;
+                m_workSheet.Cells[100, 4] = "'" + Convert.ToString(reactive56);
+
+                m_workSheet.get_Range("E100").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("E100").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("E100").Font.ColorIndex = 2;
+                m_workSheet.Cells[100, 5] = "'" + Convert.ToString(reactive56 - month_reactive56);
+
+                m_workSheet.get_Range("G90").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G90").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("G90").Font.ColorIndex = 2;
+                m_workSheet.Cells[90, 7] = "'" + Convert.ToString(month_active56 * 120);
+
+                m_workSheet.get_Range("G100").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G100").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("G100").Font.ColorIndex = 2;
+                m_workSheet.Cells[100, 7] = "'" + Convert.ToString(month_reactive56 * 120);
+
+
+                m_workSheet.get_Range("D110").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("D110").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("D110").Font.ColorIndex = 2;
+                m_workSheet.Cells[110, 4] = "'" + Convert.ToString(active42);
+
+                m_workSheet.get_Range("E110").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("E110").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("E110").Font.ColorIndex = 2;
+                m_workSheet.Cells[110, 5] = "'" + Convert.ToString(active42 - month_active42);
+
+                m_workSheet.get_Range("G110").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G110").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("G110").Font.ColorIndex = 2;
+                m_workSheet.Cells[110, 7] = "'" + Convert.ToString(month_active42 * 20);
+
+
+                m_workSheet.get_Range("G190").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G190").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("G190").Font.ColorIndex = 2;
+                m_workSheet.Cells[190, 7] = "'" + Convert.ToString(month_active55 * 120 + month_active56 * 120 + month_active42 * 20 + Convert.ToDecimal(textBox6.Text));
+
+                m_workSheet.get_Range("G200").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G200").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.get_Range("G200").Font.ColorIndex = 2;
+                m_workSheet.Cells[200, 7] = "'" + Convert.ToString(month_reactive55 * 120 + month_reactive56 * 120 + Convert.ToDecimal(textBox7.Text));
+
+                m_workSheet.get_Range("G120").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G120").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[120, 7] = textBox6.Text;
+
+                m_workSheet.get_Range("G140").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G140").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[140, 7] = textBox7.Text;
+
+
+
+                m_workSheet.get_Range("D7", "E11").NumberFormat = "General";
+                m_workSheet.get_Range("G7", "G20").NumberFormat = "General";
+                
                 m_workSheet.get_Range("D7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("D7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[7, 4] = "'" + Convert.ToString(active55);
+                m_workSheet.Cells[7, 4] = "=D70+0";
 
                 m_workSheet.get_Range("E7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("E7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[7, 5] = "'" + Convert.ToString(active55 - month_active55);
+                m_workSheet.Cells[7, 5] = "=E70+0";
 
 
                 m_workSheet.get_Range("D8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("D8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[8, 4] = "'" + Convert.ToString(reactive55);
+                m_workSheet.Cells[8, 4] = "=D80+0";
 
                 m_workSheet.get_Range("E8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("E8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[8, 5] = "'" + Convert.ToString(reactive55 - month_reactive55);
+                m_workSheet.Cells[8, 5] = "=E80+0";
 
                 m_workSheet.get_Range("G7").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("G7").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[7, 7] = "'" + Convert.ToString(month_active55 * 120);
+                m_workSheet.Cells[7, 7] = "=G70+0";
 
                 m_workSheet.get_Range("G8").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("G8").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-                m_workSheet.Cells[8, 7] = "'" + Convert.ToString(month_reactive55 * 120);
+                m_workSheet.Cells[8, 7] = "=G80+0";
+
+                m_workSheet.get_Range("D9").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("D9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[9, 4] = "=D90+0";
+
+                m_workSheet.get_Range("E9").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("E9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[9, 5] = "=E90+0";
+
+                m_workSheet.get_Range("D10").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("D10").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[10, 4] = "=D100+0";
+
+                m_workSheet.get_Range("E10").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("E10").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[10, 5] = "=E100+0";
+
+                m_workSheet.get_Range("G9").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G9").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[9, 7] = "=G90+0";
+
+                m_workSheet.get_Range("G10").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G10").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[10, 7] = "=G100+0";
+
+
+                m_workSheet.get_Range("D11").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("D11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[11, 4] = "=D110+0";
+
+                m_workSheet.get_Range("E11").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("E11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[11, 5] = "=E110+0";
+
+                m_workSheet.get_Range("G11").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G11").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[11, 7] = "=G110+0";
+
+                m_workSheet.get_Range("G12").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G12").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[12, 7] = "=G120+0";
+
+                m_workSheet.get_Range("G14").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G14").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[14, 7] = "=G140+0";
+
+                m_workSheet.get_Range("G19").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G19").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[19, 7] = "=G190+0";
+
+                m_workSheet.get_Range("G20").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                m_workSheet.get_Range("G20").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                m_workSheet.Cells[20, 7] = "=G200+0";
 
 
             }
@@ -6929,6 +7070,12 @@ namespace WindowsFormsApplication2
                 GC.Collect();
             }
 
+        }
+
+        private void настройкаCOMПортовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings form_settings = new Settings();
+            form_settings.ShowDialog();
         }
 
 

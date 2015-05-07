@@ -83,6 +83,10 @@
             this.dateTimePicker9 = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker10 = new System.Windows.Forms.DateTimePicker();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.progressBar5 = new System.Windows.Forms.ProgressBar();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -166,10 +170,9 @@
             this.radioButton10 = new System.Windows.Forms.RadioButton();
             this.shapeContainer4 = new Microsoft.VisualBasic.PowerPacks.ShapeContainer();
             this.lineShape4 = new Microsoft.VisualBasic.PowerPacks.LineShape();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.настройкаCOMПортовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -195,6 +198,7 @@
             this.groupBox6.SuspendLayout();
             this.tabPage9.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -224,10 +228,10 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage9);
-            this.tabControl1.Location = new System.Drawing.Point(0, 2);
+            this.tabControl1.Location = new System.Drawing.Point(0, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(874, 345);
+            this.tabControl1.Size = new System.Drawing.Size(874, 379);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -508,7 +512,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(866, 319);
+            this.tabPage2.Size = new System.Drawing.Size(866, 353);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Электроэнергия";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -776,6 +780,40 @@
             this.groupBox9.TabIndex = 8;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Настройки формирования отчета";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(132, 88);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(66, 20);
+            this.textBox7.TabIndex = 6;
+            this.textBox7.Text = "20464";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(17, 91);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(114, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Потерии реактивные";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(132, 60);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(66, 20);
+            this.textBox6.TabIndex = 4;
+            this.textBox6.Text = "3777";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(17, 63);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(102, 13);
+            this.label8.TabIndex = 3;
+            this.label8.Text = "Потерии активные";
             // 
             // checkBox9
             // 
@@ -1622,46 +1660,39 @@
             this.lineShape4.Y1 = 9;
             this.lineShape4.Y2 = 280;
             // 
-            // label8
+            // menuStrip1
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(17, 63);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(102, 13);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Потерии активные";
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.настройкиToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(870, 24);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // textBox6
+            // настройкиToolStripMenuItem
             // 
-            this.textBox6.Location = new System.Drawing.Point(132, 60);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(66, 20);
-            this.textBox6.TabIndex = 4;
-            this.textBox6.Text = "3777";
+            this.настройкиToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.настройкаCOMПортовToolStripMenuItem});
+            this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.настройкиToolStripMenuItem.Text = "Настройки";
             // 
-            // textBox7
+            // настройкаCOMПортовToolStripMenuItem
             // 
-            this.textBox7.Location = new System.Drawing.Point(132, 88);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(66, 20);
-            this.textBox7.TabIndex = 6;
-            this.textBox7.Text = "20464";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(17, 91);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(114, 13);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "Потерии реактивные";
+            this.настройкаCOMПортовToolStripMenuItem.Name = "настройкаCOMПортовToolStripMenuItem";
+            this.настройкаCOMПортовToolStripMenuItem.Size = new System.Drawing.Size(204, 22);
+            this.настройкаCOMПортовToolStripMenuItem.Text = "Настройка COM портов";
+            this.настройкаCOMПортовToolStripMenuItem.Click += new System.EventHandler(this.настройкаCOMПортовToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(870, 346);
+            this.ClientSize = new System.Drawing.Size(870, 405);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Энергоносители";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -1704,7 +1735,10 @@
             this.tabPage9.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1852,6 +1886,9 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem настройкиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem настройкаCOMПортовToolStripMenuItem;
     }
 }
 

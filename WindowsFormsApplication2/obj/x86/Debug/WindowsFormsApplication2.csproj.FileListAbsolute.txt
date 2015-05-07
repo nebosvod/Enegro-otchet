@@ -155,3 +155,5 @@ D:\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplicat
 D:\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.Properties.Resources.resources
 D:\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\GenerateResource.read.1.tlog
 D:\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\GIT\Energo-otchet\WindowsFormsApplication2\bin\Debug\WindowsFormsApplication2.exe.config
+D:\GIT\Energo-otchet\WindowsFormsApplication2\obj\x86\Debug\WindowsFormsApplication2.Settings.resources
