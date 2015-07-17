@@ -251,7 +251,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(866, 319);
+            this.tabPage1.Size = new System.Drawing.Size(866, 353);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Газ";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -488,7 +488,7 @@
             this.shapeContainer1.Name = "shapeContainer1";
             this.shapeContainer1.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.lineShape1});
-            this.shapeContainer1.Size = new System.Drawing.Size(860, 313);
+            this.shapeContainer1.Size = new System.Drawing.Size(860, 347);
             this.shapeContainer1.TabIndex = 14;
             this.shapeContainer1.TabStop = false;
             // 
@@ -694,6 +694,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(64, 20);
             this.textBox5.TabIndex = 10;
+            this.textBox5.Visible = false;
             // 
             // comboBox5
             // 
@@ -716,6 +717,7 @@
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(87, 21);
             this.comboBox5.TabIndex = 9;
+            this.comboBox5.Visible = false;
             // 
             // radioButton13
             // 
@@ -726,6 +728,7 @@
             this.radioButton13.TabIndex = 8;
             this.radioButton13.Text = "Произвольный период";
             this.radioButton13.UseVisualStyleBackColor = true;
+            this.radioButton13.Visible = false;
             // 
             // radioButton14
             // 
@@ -736,6 +739,7 @@
             this.radioButton14.TabIndex = 7;
             this.radioButton14.Text = "Произвольный месяц";
             this.radioButton14.UseVisualStyleBackColor = true;
+            this.radioButton14.Visible = false;
             // 
             // radioButton15
             // 
@@ -757,6 +761,7 @@
             this.dateTimePicker9.Name = "dateTimePicker9";
             this.dateTimePicker9.Size = new System.Drawing.Size(82, 20);
             this.dateTimePicker9.TabIndex = 5;
+            this.dateTimePicker9.Visible = false;
             // 
             // dateTimePicker10
             // 
@@ -766,6 +771,7 @@
             this.dateTimePicker10.Name = "dateTimePicker10";
             this.dateTimePicker10.Size = new System.Drawing.Size(87, 20);
             this.dateTimePicker10.TabIndex = 4;
+            this.dateTimePicker10.Visible = false;
             // 
             // groupBox9
             // 
@@ -847,7 +853,7 @@
             this.tabPage3.Controls.Add(this.shapeContainer2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(866, 319);
+            this.tabPage3.Size = new System.Drawing.Size(866, 353);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Вода";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1136,7 +1142,7 @@
             this.shapeContainer2.Name = "shapeContainer2";
             this.shapeContainer2.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.lineShape2});
-            this.shapeContainer2.Size = new System.Drawing.Size(866, 319);
+            this.shapeContainer2.Size = new System.Drawing.Size(866, 353);
             this.shapeContainer2.TabIndex = 5;
             this.shapeContainer2.TabStop = false;
             // 
@@ -1160,7 +1166,7 @@
             this.tabPage4.Controls.Add(this.shapeContainer3);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(866, 319);
+            this.tabPage4.Size = new System.Drawing.Size(866, 353);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Пар";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1425,7 +1431,7 @@
             this.shapeContainer3.Name = "shapeContainer3";
             this.shapeContainer3.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.lineShape3});
-            this.shapeContainer3.Size = new System.Drawing.Size(866, 319);
+            this.shapeContainer3.Size = new System.Drawing.Size(866, 353);
             this.shapeContainer3.TabIndex = 28;
             this.shapeContainer3.TabStop = false;
             // 
@@ -1450,7 +1456,7 @@
             this.tabPage9.Controls.Add(this.shapeContainer4);
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
-            this.tabPage9.Size = new System.Drawing.Size(866, 319);
+            this.tabPage9.Size = new System.Drawing.Size(866, 353);
             this.tabPage9.TabIndex = 4;
             this.tabPage9.Text = "Очистные";
             this.tabPage9.UseVisualStyleBackColor = true;
@@ -1647,7 +1653,7 @@
             this.shapeContainer4.Name = "shapeContainer4";
             this.shapeContainer4.Shapes.AddRange(new Microsoft.VisualBasic.PowerPacks.Shape[] {
             this.lineShape4});
-            this.shapeContainer4.Size = new System.Drawing.Size(866, 319);
+            this.shapeContainer4.Size = new System.Drawing.Size(866, 353);
             this.shapeContainer4.TabIndex = 31;
             this.shapeContainer4.TabStop = false;
             // 

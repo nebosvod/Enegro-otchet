@@ -6148,12 +6148,12 @@ namespace WindowsFormsApplication2
 
 
                 string[] portnames = SerialPort.GetPortNames();
-                SerialPort port = new SerialPort("COM2", 9600, Parity.None, 8, StopBits.One);
+                SerialPort port = new SerialPort("COM12", 9600, Parity.None, 8, StopBits.One);
 
                 byte[] buff = { 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x77, 0x81 };
                 byte[] buff2 = { 0x55, 0x08, 0x13, 0x27, 0xDD };
 
-                
+
                 port.Open();
 
                 port.Write(buff, 0, 11);
@@ -6179,14 +6179,14 @@ namespace WindowsFormsApplication2
 
                 port.Write(month55, 0, 6);
                 Thread.Sleep(1000);
-                int byteRecieved4= port.BytesToRead;
+                int byteRecieved4 = port.BytesToRead;
                 byte[] messByte4 = new byte[byteRecieved4];
                 port.Read(messByte4, 0, byteRecieved4);
                 Thread.Sleep(1000);
 
                 port.Close();
 
-                SerialPort port2 = new SerialPort("COM4", 9600, Parity.None, 8, StopBits.One);
+                SerialPort port2 = new SerialPort("COM13", 9600, Parity.None, 8, StopBits.One);
 
                 byte[] buff3 = { 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x77, 0x81 };
                 byte[] buff4 = { 0x56, 0x08, 0x13, 0xD7, 0xDD };
@@ -6224,8 +6224,8 @@ namespace WindowsFormsApplication2
 
                 port2.Close();
 
-                SerialPort port3 = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
-
+               // SerialPort port3 = new SerialPort("COM9", 9600, Parity.None, 8, StopBits.One);
+                SerialPort port3 = new SerialPort("COM2", 9600, Parity.None, 8, StopBits.One);
                 byte[] buff5 = { 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x77, 0x81 };
                 byte[] buff6 = { 0x42, 0x08, 0x13, 0x97, 0xD9 };
 
@@ -6262,11 +6262,12 @@ namespace WindowsFormsApplication2
 
                 port3.Close();
 
-                
+                string active1, active2, active3, active4;
+                string reactive1, reactive2, reactive3, reactive4;
 
                 //----- Вычисление активной мощности-----
 
-                string active1, active2, active3, active4;
+
 
                 if (Convert.ToString(messByte3[1].ToString("X")).Length == 1)
                 {
@@ -6285,7 +6286,7 @@ namespace WindowsFormsApplication2
                 {
                     active2 = Convert.ToString(messByte3[2].ToString("X"));
                 }
-                
+
                 if (Convert.ToString(messByte3[3].ToString("X")).Length == 1)
                 {
                     active3 = "0" + Convert.ToString(messByte3[3].ToString("X"));
@@ -6314,7 +6315,7 @@ namespace WindowsFormsApplication2
 
                 //-----Вычисление реактивной мощности--------
 
-                string reactive1, reactive2, reactive3, reactive4;
+
 
                 if (Convert.ToString(messByte3[9].ToString("X")).Length == 1)
                 {
@@ -6506,7 +6507,7 @@ namespace WindowsFormsApplication2
                     active4 = Convert.ToString(messByte5[4].ToString("X"));
                 }
 
-                byte [] act_prof3 = { Convert.ToByte(Convert.ToInt32(active3, 16)), Convert.ToByte(Convert.ToInt32(active4, 16)), Convert.ToByte(Convert.ToInt32(active1, 16)), Convert.ToByte(Convert.ToInt32(active2, 16)) };
+                byte[] act_prof3 = { Convert.ToByte(Convert.ToInt32(active3, 16)), Convert.ToByte(Convert.ToInt32(active4, 16)), Convert.ToByte(Convert.ToInt32(active1, 16)), Convert.ToByte(Convert.ToInt32(active2, 16)) };
 
                 fl1 = 0;
 
@@ -6879,22 +6880,22 @@ namespace WindowsFormsApplication2
                 m_workSheet.get_Range("D70").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("D70").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("D70").Font.ColorIndex = 2;
-                m_workSheet.Cells[70, 4] = "'" + Convert.ToString(active55);
+                m_workSheet.Cells[70, 4] = "'" + Convert.ToString(active55 + month_active55);
 
                 m_workSheet.get_Range("E70").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("E70").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("E70").Font.ColorIndex = 2;
-                m_workSheet.Cells[70, 5] = "'" + Convert.ToString(active55 - month_active55);
+                m_workSheet.Cells[70, 5] = "'" + Convert.ToString(active55);
 
                 m_workSheet.get_Range("D80").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("D80").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("D80").Font.ColorIndex = 2;
-                m_workSheet.Cells[80, 4] = "'" + Convert.ToString(reactive55);
+                m_workSheet.Cells[80, 4] = "'" + Convert.ToString(reactive55 + month_reactive55);
 
                 m_workSheet.get_Range("E80").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("E80").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("E80").Font.ColorIndex = 2;
-                m_workSheet.Cells[80, 5] = "'" + Convert.ToString(reactive55 - month_reactive55);
+                m_workSheet.Cells[80, 5] = "'" + Convert.ToString(reactive55);
 
                 m_workSheet.get_Range("G70").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("G70").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
@@ -6909,22 +6910,22 @@ namespace WindowsFormsApplication2
                 m_workSheet.get_Range("D90").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("D90").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("D90").Font.ColorIndex = 2;
-                m_workSheet.Cells[90, 4] = "'" + Convert.ToString(active56);
+                m_workSheet.Cells[90, 4] = "'" + Convert.ToString(active56 + month_active56);
 
                 m_workSheet.get_Range("E90").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("E90").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("E90").Font.ColorIndex = 2;
-                m_workSheet.Cells[90, 5] = "'" + Convert.ToString(active56 - month_active56);
+                m_workSheet.Cells[90, 5] = "'" + Convert.ToString(active56);
 
                 m_workSheet.get_Range("D100").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("D100").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("D100").Font.ColorIndex = 2;
-                m_workSheet.Cells[100, 4] = "'" + Convert.ToString(reactive56);
+                m_workSheet.Cells[100, 4] = "'" + Convert.ToString(reactive56 + month_reactive56);
 
                 m_workSheet.get_Range("E100").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("E100").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("E100").Font.ColorIndex = 2;
-                m_workSheet.Cells[100, 5] = "'" + Convert.ToString(reactive56 - month_reactive56);
+                m_workSheet.Cells[100, 5] = "'" + Convert.ToString(reactive56);
 
                 m_workSheet.get_Range("G90").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("G90").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
@@ -6940,12 +6941,12 @@ namespace WindowsFormsApplication2
                 m_workSheet.get_Range("D110").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("D110").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("D110").Font.ColorIndex = 2;
-                m_workSheet.Cells[110, 4] = "'" + Convert.ToString(active42);
+                m_workSheet.Cells[110, 4] = "'" + Convert.ToString(active42 + month_active42);
 
                 m_workSheet.get_Range("E110").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("E110").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 m_workSheet.get_Range("E110").Font.ColorIndex = 2;
-                m_workSheet.Cells[110, 5] = "'" + Convert.ToString(active42 - month_active42);
+                m_workSheet.Cells[110, 5] = "'" + Convert.ToString(active42);
 
                 m_workSheet.get_Range("G110").HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                 m_workSheet.get_Range("G110").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
@@ -7077,6 +7078,7 @@ namespace WindowsFormsApplication2
             Settings form_settings = new Settings();
             form_settings.ShowDialog();
         }
+
 
 
 
